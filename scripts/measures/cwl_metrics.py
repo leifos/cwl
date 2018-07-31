@@ -22,7 +22,7 @@ class CWLMetric(object):
         lvec = np.cumprod(cshift)
         #tmp = np.subtract(np.ones(len(cvec)),cvec)
         lvec = np.multiply(lvec,(np.subtract(np.ones(len(cvec)),cvec)))
-        print(self.metric_name, "lvec", lvec)
+        print(self.metric_name, "lvec", lvec[0:10])
         return lvec
 
     def w_vector(self, gains, costs=None):
@@ -40,7 +40,7 @@ class CWLMetric(object):
         w_tail = np.multiply(cvec_prod[1:len(cvec_prod)],w1)
         #print(w_tail)
         wvec = np.append(w1, w_tail)
-        print(self.metric_name, "wvec", wvec)
+        print(self.metric_name, "wvec", wvec[0:10])
         return wvec
 
     def pad_vector(self, vec1, vec2):
@@ -55,11 +55,18 @@ class CWLMetric(object):
             vec1 =  np.pad(vec1,(0,len(vec2)-len(vec1)), 'constant', constant_values=(0.0))
         return vec1
 
+    def pad_vector_zero(self, vec1, n):
+        if len(vec1) < n:
+            vec2 = np.zeros(n)
+            return self.pad_vector(vec1,vec2)
+
 
     def measure(self, ranking):
 
         gains = np.array(ranking.gains)
         costs = np.array(ranking.costs)
+        gains = self.pad_vector_zero(gains,1000)
+        costs = self.pad_vector_zero(costs,1000)
 
         #create the c / w / l vectors for the gain vector
 
@@ -118,6 +125,7 @@ class RBPCWLMetric(CWLMetric):
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
+        #gains =
         cvec = np.dot(np.ones(len(gains)), self.theta)
         return cvec
 
