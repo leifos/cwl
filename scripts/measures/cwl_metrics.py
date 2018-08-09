@@ -1,5 +1,8 @@
 import numpy as np
 import math
+import logging
+
+logging.basicConfig(filename='example.log',level=logging.DEBUG)
 
 
 class CWLMetric(object):
@@ -10,6 +13,8 @@ class CWLMetric(object):
         self.expected_total_utility = 0.0
         self.expected_total_cost = 0.0
         self.metric_name = "Def"
+        self.ranking = None
+
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
@@ -22,7 +27,8 @@ class CWLMetric(object):
         lvec = np.cumprod(cshift)
         #tmp = np.subtract(np.ones(len(cvec)),cvec)
         lvec = np.multiply(lvec,(np.subtract(np.ones(len(cvec)),cvec)))
-        print(self.metric_name, "lvec", lvec[0:10])
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "lvec", lvec[0:10]))
+        #print(self.metric_name, "lvec", lvec[0:10])
         return lvec
 
     def w_vector(self, gains, costs=None):
@@ -40,7 +46,7 @@ class CWLMetric(object):
         w_tail = np.multiply(cvec_prod[1:len(cvec_prod)],w1)
         #print(w_tail)
         wvec = np.append(w1, w_tail)
-        print(self.metric_name, "wvec", wvec[0:10])
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
         return wvec
 
     def pad_vector(self, vec1, vec2):
@@ -63,6 +69,7 @@ class CWLMetric(object):
 
     def measure(self, ranking):
 
+        self.ranking = ranking
         gains = np.array(ranking.gains)
         costs = np.array(ranking.costs)
         gains = self.pad_vector_zero(gains,1000)
@@ -87,7 +94,7 @@ class CWLMetric(object):
         return self.expected_total_utility
 
     def report(self):
-        print("{0} {1:.3f} {2:.3f} {3:.3f} {4:.3f}".format(self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost))
+        print("{0} {1} {2:.3f} {3:.3f} {4:.3f} {5:.3f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost))
 
 
 
@@ -95,7 +102,7 @@ class PrecisionCWLMetric(CWLMetric):
 
     def __init__(self, k=10):
         super(CWLMetric, self).__init__()
-        self.metric_name = "P@{0}".format(k)
+        self.metric_name = "P@{0}    ".format(k)
         self.k = k
 
     def c_vector(self, gains, costs=None):
@@ -103,18 +110,6 @@ class PrecisionCWLMetric(CWLMetric):
         cvec = np.ones(self.k-1)
         cvec = self.pad_vector(cvec, gains)
         return cvec
-
-    #def l_vector(self, gains, costs=None):
-    #    lvec = np.zeros(self.k)
-    #    lvec[-1] = 1.0
-    #    lvec = self.pad_vector(lvec, gains)
-    #    return lvec
-
-    #def w_vector(self, gains, costs=None):
-    #    wvec = np.divide(np.ones(self.k), self.k)
-    #    wvec = self.pad_vector(wvec, gains)
-    #    return wvec
-
 
 class RBPCWLMetric(CWLMetric):
 
@@ -133,7 +128,7 @@ class RRCWLMetric(CWLMetric):
 
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "RR"
+        self.metric_name = "RR     "
 
     def c_vector(self, gains, costs=None):
 
@@ -155,7 +150,7 @@ class ERRCWLMetric(CWLMetric):
 
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "ERR"
+        self.metric_name = "ERR     "
 
     def c_vector(self, gains, costs=None):
 
@@ -167,7 +162,7 @@ class ERRCWLMetric(CWLMetric):
 class SDCGCWLMetric(CWLMetric):
     def __init__(self, k):
         super(CWLMetric, self).__init__()
-        self.metric_name = "SDCG@{0}".format(k)
+        self.metric_name = "SDCG@{0} ".format(k)
         self.k = k
 
     def c_vector(self, gains, costs=None):
@@ -188,7 +183,7 @@ class SDCGCWLMetric(CWLMetric):
 class APCWLMetric(CWLMetric):
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "AP"
+        self.metric_name = "AP     "
 
     def c_vector(self, gains, costs=None):
         cvec = []
