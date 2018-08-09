@@ -11,5 +11,6 @@ class PrecisionCWLMetric(CWLMetric):
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
         cvec = np.ones(self.k-1)
-        cvec = self.pad_vector(cvec, gains)
+        cvec = self.pad_vector_zeros(cvec, len(gains))
+        #print(len(cvec),len(gains),self.k, cvec[0:20])
         return cvec

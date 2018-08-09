@@ -2,7 +2,7 @@ import numpy as np
 import math
 import logging
 
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
+logging.basicConfig(filename='cwl.log',level=logging.DEBUG)
 
 
 class CWLMetric(object):
@@ -49,7 +49,7 @@ class CWLMetric(object):
         logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
         return wvec
 
-    def pad_vector(self, vec1, vec2):
+    def pad_vector(self, vec1, n, val):
         """
         Pads vector 1 to be the same size as vector 2
         :param vec1:
@@ -57,14 +57,18 @@ class CWLMetric(object):
         :return:
         """
 
-        if len(vec1) < len(vec2):
-            vec1 =  np.pad(vec1,(0,len(vec2)-len(vec1)), 'constant', constant_values=(0.0))
+        if len(vec1) < n:
+            vec1 =  np.pad(vec1,(0,n-len(vec1)), 'constant', constant_values=(val))
         return vec1
 
-    def pad_vector_zero(self, vec1, n):
+    def pad_vector_zeros(self, vec1, n):
         if len(vec1) < n:
-            vec2 = np.zeros(n)
-            return self.pad_vector(vec1,vec2)
+
+            return self.pad_vector(vec1, n, 0.0)
+
+    def pad_vector_ones(self, vec1, n):
+        if len(vec1) < n:
+            return self.pad_vector(vec1,n, 1.0)
 
 
     def measure(self, ranking):
@@ -72,19 +76,19 @@ class CWLMetric(object):
         self.ranking = ranking
         gains = np.array(ranking.gains)
         costs = np.array(ranking.costs)
-        gains = self.pad_vector_zero(gains, 1000)
-        costs = self.pad_vector_zero(costs, 1000)
+        gains = self.pad_vector_zeros(gains, 1000)
+        costs = self.pad_vector_ones(costs, 1000)
 
         #create the c / w / l vectors for the gain vector
 
         wvec = self.w_vector(gains, costs)
         lvec = self.l_vector(gains, costs)
 
-        gains = self.pad_vector(gains, wvec)
-        costs = self.pad_vector(costs, wvec)
+        #gains = self.pad_vector(gains, wvec)
+        #costs = self.pad_vector(costs, wvec)
         cum_gains = np.cumsum(gains)
         cum_costs = np.cumsum(costs)
-
+        
         self.expected_utility = np.sum( np.dot(wvec, gains) )
         self.expected_total_utility = np.sum(np.dot(lvec, cum_gains))
 

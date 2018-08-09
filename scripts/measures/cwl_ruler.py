@@ -6,7 +6,7 @@ from measures.cwl_rbp import *
 from measures.cwl_rr import *
 from measures.cwl_ap import *
 from measures.cwl_dcg import *
-
+from measures.cwl_inst import *
 
 
 class Ranking(object):
@@ -41,10 +41,18 @@ class CWLRuler(object):
     def __init__(self, metrics_file=None):
         #add the metrics to the list
         self.metrics = [ PrecisionCWLMetric(20),
-                         PrecisionCWLMetric(5), PrecisionCWLMetric(1),
-                         RBPCWLMetric(0.5), RBPCWLMetric(0.9),
-                         SDCGCWLMetric(10),SDCGCWLMetric(5),
-                         RRCWLMetric(), APCWLMetric()]
+                         PrecisionCWLMetric(10),
+                         PrecisionCWLMetric(5),
+                         PrecisionCWLMetric(1),
+                         RBPCWLMetric(0.5),
+                         RBPCWLMetric(0.9),
+                         SDCGCWLMetric(10),
+                         SDCGCWLMetric(5),
+                         RRCWLMetric(),
+                         APCWLMetric(),
+                         INSTCWLMetric(2),
+                         INSTCWLMetric(1)
+                         ]
 
     def measure(self, ranking):
         for metric in self.metrics:

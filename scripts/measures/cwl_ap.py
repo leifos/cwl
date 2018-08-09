@@ -22,7 +22,7 @@ class APCWLMetric(CWLMetric):
         :return:
         '''
         cvec = []
-        for i in range(1,len(gains)):
+        for i in range(0,len(gains)):
 
             bot = np.sum(gains[i:len(gains)]/i)
             top = np.sum(gains[(i+1):len(gains)]/i)
@@ -32,10 +32,6 @@ class APCWLMetric(CWLMetric):
             else:
                 cvec.append(0.0)
 
-        cvec.append(0.0)
-
-
         cvec = np.array(cvec)
-
 
         return cvec
