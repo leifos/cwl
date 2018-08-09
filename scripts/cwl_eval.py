@@ -4,6 +4,7 @@ __author__ = "Leif @leifos Azzopardi"
 import os
 import sys
 import re
+import argparse
 #from measures.tar_rulers import TarRuler, TarAggRuler
 from seeker.trec_qrel_handler import TrecQrelHandler
 from measures.cwl_ruler import Ranking, CWLRuler
@@ -56,36 +57,23 @@ def main(results_file, qrel_file):
         #Compute residuals?
 
 
-def usage(args):
-    print("Usage: {0} <gain_file> <result_file> <cost_file> <metrics_file>".format(args[0]))
-    print("Usage: {0} <gain_file> <result_file>".format(args[0]))
-
-    print("<gain_file>   : A TREC Formatted Qrel File with relevance scores used as gains")
-    print("                Four column tab/space sep file with fields: topic_id unused doc_id gain")
-
-    print("<cost_file>   : Costs associated with element type")
-    print("<cost_file>   : If not specified, costs default to one for all elements")
-
-    print("                Two column tab/space sep file with fields: element_type element_cost")
-    print("<result_file> : A TREC Formatted Result File")
-    print("                Six column tab/space sep file with fields: topic_id element_type doc_id rank score run_id")
-    print("<metrics_file>: The list of metrics that are to be reported")
-    print("                If not specified, a set of default metrics will be reported")
-    print("                Tab/space sep file with fields: metric_name params")
-
-
 if __name__ == "__main__":
-    filename = None
-    if len(sys.argv) >= 2:
-        qrels = sys.argv[1]
 
-    if len(sys.argv)==3:
-        results = sys.argv[2]
-    else:
-        usage(sys.argv)
-        exit(1)
+    arg_parser = argparse.ArgumentParser(description="CWL Evaluation Metrics")
+    arg_parser.add_argument("gain_file", help="A TREC Formatted Qrel File with relevance scores used as gains. Gain values should be between zero and one. Four column tab/space sep file with fields: topic_id unused doc_id gain")
+    arg_parser.add_argument("result_file", help="TREC formatted results file. Six column tab/space sep file with fields: topic_id element_type doc_id rank score run_id")
+    arg_parser.add_argument("-c", "--cost_file", help="Costs associated with each element type specified in result file.", required=False)
+    arg_parser.add_argument("-m", "--metrics_file", help="The list of metrics that are to be reported. If not specified, a set of default metrics will be reported. Tab/space sep file with fields: metric_name params", required=False)
 
-    if os.path.exists( results ) and os.path.exists(qrels):
-        main(results,qrels)
-    else:
-        usage(sys.argv)
+    args = arg_parser.parse_args()
+
+    gain_file = args.gain_file
+    result_file = args.result_file
+
+    if not os.path.exists( result_file ):
+        print("Result File Not Found")
+        quit(1)
+    if not os.path.exists(gain_file):
+        print("Gain/Qrel Not Found")
+        quit(1)
+    main(result_file, gain_file)
