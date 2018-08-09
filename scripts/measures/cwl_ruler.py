@@ -1,7 +1,14 @@
 __author__ = "Leif Azzopardi"
 
-from measures.cwl_metrics import CWLMetric, PrecisionCWLMetric, RBPCWLMetric, SDCGCWLMetric, RRCWLMetric
-from measures.cwl_metrics import APCWLMetric
+from measures.cwl_metrics import *
+from measures.cwl_precision import *
+from measures.cwl_rbp import *
+from measures.cwl_rr import *
+from measures.cwl_ap import *
+from measures.cwl_dcg import *
+
+
+
 class Ranking(object):
     def __init__(self, topic_id, gain_handler, cost_handler=None):
         self.topic_id = topic_id
@@ -33,7 +40,7 @@ class CWLRuler(object):
 
     def __init__(self, metrics_file=None):
         #add the metrics to the list
-        self.metrics = [ CWLMetric(), PrecisionCWLMetric(20),
+        self.metrics = [ PrecisionCWLMetric(20),
                          PrecisionCWLMetric(5), PrecisionCWLMetric(1),
                          RBPCWLMetric(0.5), RBPCWLMetric(0.9),
                          SDCGCWLMetric(10),SDCGCWLMetric(5),

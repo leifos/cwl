@@ -5,7 +5,6 @@ import os
 import sys
 import re
 import argparse
-#from measures.tar_rulers import TarRuler, TarAggRuler
 from seeker.trec_qrel_handler import TrecQrelHandler
 from measures.cwl_ruler import Ranking, CWLRuler
 

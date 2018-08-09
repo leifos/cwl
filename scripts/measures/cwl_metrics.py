@@ -72,8 +72,8 @@ class CWLMetric(object):
         self.ranking = ranking
         gains = np.array(ranking.gains)
         costs = np.array(ranking.costs)
-        gains = self.pad_vector_zero(gains,1000)
-        costs = self.pad_vector_zero(costs,1000)
+        gains = self.pad_vector_zero(gains, 1000)
+        costs = self.pad_vector_zero(costs, 1000)
 
         #create the c / w / l vectors for the gain vector
 
@@ -98,109 +98,17 @@ class CWLMetric(object):
 
 
 
-class PrecisionCWLMetric(CWLMetric):
-
-    def __init__(self, k=10):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "P@{0}    ".format(k)
-        self.k = k
-
-    def c_vector(self, gains, costs=None):
-        # precision for k = len(gains)
-        cvec = np.ones(self.k-1)
-        cvec = self.pad_vector(cvec, gains)
-        return cvec
-
-class RBPCWLMetric(CWLMetric):
-
-    def __init__(self, theta=0.9):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "RBP@{0}".format(theta)
-        self.theta = theta
-
-    def c_vector(self, gains, costs=None):
-        # precision for k = len(gains)
-        #gains =
-        cvec = np.dot(np.ones(len(gains)), self.theta)
-        return cvec
-
-class RRCWLMetric(CWLMetric):
-
-    def __init__(self):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "RR     "
-
-    def c_vector(self, gains, costs=None):
-
-        cvec = []
-        found_gain = False
-        for g in gains:
-            if g > 0.0:
-                found_gain = True
-            if found_gain:
-                cvec.append(0.0)
-            else:
-                cvec.append(1.0)
-
-        cvec = np.array(cvec)
-        return cvec
-
-
-class ERRCWLMetric(CWLMetric):
-
-    def __init__(self):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "ERR     "
-
-    def c_vector(self, gains, costs=None):
-
-        cvec = np.subtract(np.ones(len(gains))-gains)
-
-        return cvec
-
-
-class SDCGCWLMetric(CWLMetric):
-    def __init__(self, k):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "SDCG@{0} ".format(k)
-        self.k = k
-
-    def c_vector(self, gains, costs=None):
-
-        cvec = []
-        for i in range(1,len(gains)+1):
-            if i < self.k:
-                cvec.append(math.log(i+1,2)/math.log(i+2,2))
-            else:
-                cvec.append(0.0)
-
-        cvec = np.array(cvec)
-
-        return cvec
 
 
 
-class APCWLMetric(CWLMetric):
-    def __init__(self):
-        super(CWLMetric, self).__init__()
-        self.metric_name = "AP     "
-
-    def c_vector(self, gains, costs=None):
-        cvec = []
-        for i in range(1,len(gains)):
-
-            bot = np.sum(gains[i:len(gains)]/i)
-            top = np.sum(gains[(i+1):len(gains)]/i)
-
-            if top > 0.0:
-                cvec.append(top/bot)
-            else:
-                cvec.append(0.0)
-
-        cvec.append(0.0)
 
 
-        cvec = np.array(cvec)
-
-
-        return cvec
+'''
+http://dl.acm.org/citation.cfm?id=2838938
+@inproceedings{moffat2015inst,
+    title={INST: An Adaptive Metric for Information Retrieval Evaluation},
+    author={Moffat, Alistair and Bailey, Peter and Scholer, Falk and Thomas, Paul},
+    booktitle={Proceedings of the 20th Australasian Document Computing Symposium (ADCS'15)$\}$},
+    year={2015},
+    organization={ACM--Association for Computing Machinery$\}$}
+'''
