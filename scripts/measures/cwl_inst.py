@@ -16,17 +16,18 @@ C.fn.INST <- function(T) {
 
 class INSTCWLMetric(CWLMetric):
 
-    def __init__(self, T=1.0):
+    def __init__(self, T = 1.0):
         super(CWLMetric, self).__init__()
         self.metric_name = "INST T={0}    ".format(T)
         self.T = T
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
-        cg = np.cumsum(gains)
+        cg = np.subtract(self.T, np.cumsum(gains))
+        print(cg[0:9])
         cvec = []
         for i in range(0, len(cg)):
-            ci = ((i+self.T+cg[i]-1.0) / (i+self.T+cg[i]))**2.0
+            ci = (((i+1.0)+self.T+cg[i]-1.0) / ((i+1.0)+self.T+cg[i]))**2.0
             cvec.append(ci)
 
         cvec = np.array(cvec)

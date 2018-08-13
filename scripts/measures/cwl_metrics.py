@@ -23,6 +23,8 @@ class CWLMetric(object):
 
     def l_vector(self, gains, costs=None):
         cvec = self.c_vector(gains, costs)
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "cvec", cvec[0:10]))
+
         cshift = np.append(np.array([1.0]), cvec[0:-1])
         lvec = np.cumprod(cshift)
         #tmp = np.subtract(np.ones(len(cvec)),cvec)

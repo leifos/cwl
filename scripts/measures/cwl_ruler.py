@@ -7,6 +7,7 @@ from measures.cwl_rr import *
 from measures.cwl_ap import *
 from measures.cwl_dcg import *
 from measures.cwl_inst import *
+from measures.cwl_insq import *
 
 
 class Ranking(object):
@@ -51,8 +52,30 @@ class CWLRuler(object):
                          RRCWLMetric(),
                          APCWLMetric(),
                          INSTCWLMetric(2),
-                         INSTCWLMetric(1)
+                         INSTCWLMetric(1),
+                         INSQCWLMetric(2),
+                         INSQCWLMetric(1),
+                         RRCWLMetric() ]
+
+        '''
+                         PrecisionCWLMetric(20),
+                         PrecisionCWLMetric(10),
+                         PrecisionCWLMetric(5),
+                         PrecisionCWLMetric(1),
+                         RBPCWLMetric(0.5),
+                         RBPCWLMetric(0.9),
+                         SDCGCWLMetric(10),
+                         SDCGCWLMetric(5),
+                         RRCWLMetric(),
+                         APCWLMetric(),
+                         INSTCWLMetric(2),
+                         INSTCWLMetric(1),
+                         INSQCWLMetric(2),
+                         INSQCWLMetric(1),
+                         RRCWLMetric()
                          ]
+        '''
+
 
     def measure(self, ranking):
         for metric in self.metrics:

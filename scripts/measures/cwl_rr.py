@@ -18,16 +18,17 @@ class RRCWLMetric(CWLMetric):
 
     def c_vector(self, gains, costs=None):
 
-        cvec = []
+        cvec = np.zeros(len(gains))
+        i = 0
         found_gain = False
-        for g in gains:
-            if (g > 0.0) and not found_gain:
-                cvec.append(1.0)
+        while i < len(gains) and not found_gain:
+
+            if (gains[i] > 0):
                 found_gain = True
             else:
-                cvec.append(0.0)
+                cvec[i] = 1.0
+            i = i + 1
 
-        cvec = np.array(cvec)
         return cvec
 
 
