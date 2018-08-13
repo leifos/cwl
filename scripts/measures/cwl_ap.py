@@ -24,8 +24,8 @@ class APCWLMetric(CWLMetric):
         cvec = []
         for i in range(0,len(gains)):
 
-            bot = np.sum(gains[i:len(gains)]/i)
-            top = np.sum(gains[(i+1):len(gains)]/i)
+            bot = np.sum(gains[i:len(gains)]/(i+1.0))
+            top = np.sum(gains[(i+1):len(gains)]/(i+1.0))
 
             if top > 0.0:
                 cvec.append(top/bot)

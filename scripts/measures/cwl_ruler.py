@@ -50,7 +50,7 @@ class CWLRuler(object):
                          SDCGCWLMetric(10),
                          SDCGCWLMetric(5),
                          RRCWLMetric(),
-                         APCWLMetric(),
+                         #APCWLMetric(),
                          INSTCWLMetric(2),
                          INSTCWLMetric(1),
                          INSQCWLMetric(2),
