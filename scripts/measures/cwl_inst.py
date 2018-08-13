@@ -24,7 +24,6 @@ class INSTCWLMetric(CWLMetric):
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
         cg = np.subtract(self.T, np.cumsum(gains))
-        print(cg[0:9])
         cvec = []
         for i in range(0, len(cg)):
             ci = (((i+1.0)+self.T+cg[i]-1.0) / ((i+1.0)+self.T+cg[i]))**2.0
