@@ -8,6 +8,7 @@ from measures.cwl_ap import *
 from measures.cwl_dcg import *
 from measures.cwl_inst import *
 from measures.cwl_insq import *
+from measures.cwl_tbg import *
 
 
 class Ranking(object):
@@ -50,12 +51,14 @@ class CWLRuler(object):
                          SDCGCWLMetric(10),
                          SDCGCWLMetric(5),
                          RRCWLMetric(),
-                         #APCWLMetric(),
+                         APCWLMetric(),
                          INSTCWLMetric(2),
                          INSTCWLMetric(1),
                          INSQCWLMetric(2),
                          INSQCWLMetric(1),
-                         RRCWLMetric() ]
+                         TBGCWLMetric(10),
+                         TBGCWLMetric(2)
+                         ]
 
         '''
                          PrecisionCWLMetric(20),
@@ -71,8 +74,8 @@ class CWLRuler(object):
                          INSTCWLMetric(2),
                          INSTCWLMetric(1),
                          INSQCWLMetric(2),
-                         INSQCWLMetric(1),
-                         RRCWLMetric()
+                         INSQCWLMetric(1)
+                         
                          ]
         '''
 
