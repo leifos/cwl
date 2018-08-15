@@ -60,7 +60,10 @@ class CWLRuler(object):
                          INSQCWLMetric(1),
                          BPMCWLMetric(1,1000),
                          BPMCWLMetric(1000,10),
-                         BPMCWLMetric(1.2,10)
+                         BPMCWLMetric(1.2,10),
+                         BPMDCWLMetric(1,1000),
+                         BPMDCWLMetric(1000,10),
+                         BPMDCWLMetric(1.2,10)
 
                          ]
 
