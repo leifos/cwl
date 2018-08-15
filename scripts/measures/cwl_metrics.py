@@ -23,13 +23,13 @@ class CWLMetric(object):
 
     def l_vector(self, gains, costs=None):
         cvec = self.c_vector(gains, costs)
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "cvec", cvec[0:10]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "cvec", cvec[0:11]))
 
         cshift = np.append(np.array([1.0]), cvec[0:-1])
         lvec = np.cumprod(cshift)
         #tmp = np.subtract(np.ones(len(cvec)),cvec)
         lvec = np.multiply(lvec,(np.subtract(np.ones(len(cvec)),cvec)))
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "lvec", lvec[0:10]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "lvec", lvec[0:11]))
         #print(self.metric_name, "lvec", lvec[0:10])
         return lvec
 
@@ -48,7 +48,7 @@ class CWLMetric(object):
         w_tail = np.multiply(cvec_prod[1:len(cvec_prod)],w1)
         #print(w_tail)
         wvec = np.append(w1, w_tail)
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:11]))
         return wvec
 
     def pad_vector(self, vec1, n, val):

@@ -9,6 +9,7 @@ from measures.cwl_dcg import *
 from measures.cwl_inst import *
 from measures.cwl_insq import *
 from measures.cwl_tbg import *
+from measures.cwl_bpm import *
 
 
 class Ranking(object):
@@ -42,7 +43,8 @@ class CWLRuler(object):
 
     def __init__(self, metrics_file=None):
         #add the metrics to the list
-        self.metrics = [ PrecisionCWLMetric(20),
+        self.metrics = [
+                         PrecisionCWLMetric(20),
                          PrecisionCWLMetric(10),
                          PrecisionCWLMetric(5),
                          PrecisionCWLMetric(1),
@@ -56,8 +58,10 @@ class CWLRuler(object):
                          INSTCWLMetric(1),
                          INSQCWLMetric(2),
                          INSQCWLMetric(1),
-                         TBGCWLMetric(10),
-                         TBGCWLMetric(2)
+                         BPMCWLMetric(1,1000),
+                         BPMCWLMetric(1000,10),
+                         BPMCWLMetric(1.2,10)
+
                          ]
 
         '''
