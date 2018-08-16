@@ -7,6 +7,19 @@ import logging
 Time Biased Gain
 #TODO(leifos) add reference to Smucker & Clarke
 
+@inproceedings{Smucker:2012:TCE:2348283.2348300,
+ author = {Smucker, Mark D. and Clarke, Charles L.A.},
+ title = {Time-based Calibration of Effectiveness Measures},
+ booktitle = {Proceedings of the 35th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+ series = {SIGIR '12},
+ year = {2012},
+ location = {Portland, Oregon, USA},
+ pages = {95--104},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/2348283.2348300},
+} 
+
+
 '''
 
 class TBGCWLMetric(CWLMetric):

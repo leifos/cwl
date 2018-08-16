@@ -4,10 +4,58 @@ from measures.cwl_metrics import CWLMetric
 '''
 Bejewelled Player Model (BPM)
 
-Static 
-
 Gains are assumed to be scaled to be between: 0.0 - 1.0
-thus rel_max = 1.0
+thus rel_max is assumed to be 1.0. 
+
+In Zhang et al (2017), rel_max is an integer i.e. 0,1,2,3 (for a 4 levels of grades)
+and the rel level is raised to the power of 2. To encode this within the C/W/L BPM, 
+the rel levels would need to be re-scaled to be between one and zero. 
+
+Static: takes T (i.e. E_b) and K (i.e. E_c) in Zhang et al (2017)
+T is the total amount of gain desired - similar to T in INST and IFT
+
+K is the total amout of cost willing to be spent, similar to k in precision,
+however K can be any unit of cost (depending on the costs file),
+while k in P@k, is the number of documents.
+In Zhang et al (2017), K is k the number of documents, 
+but here we provide the generalized verison, 
+such that K can be set based on the costs specified for each doc (as per the cost file)
+
+
+Dynamic: Also takes: hb, hc and gain_med ( i.e. rel_med in Zhang et al (2017)
+hb 
+
+gain_med is the median gain (i.e. value between 0 and 1.0)
+if gain observed at position i is higher than gain_med,
+than T is increased, while K is increased
+
+if gain observed at position i is lower than gain_med,
+than T is decreased, while K is decreased
+
+The change in gain is: T <- T + hb * (gain[i] - gain_med)
+The change in cost is: K <- K + hc * (gain[i] - gain_med)
+
+hb and hc are therefore scaling parameters.
+
+
+@inproceedings{Zhang:2017:EWS:3077136.3080841,
+ author = {Zhang, Fan and Liu, Yiqun and Li, Xin and Zhang, Min and Xu, Yinghui and Ma, Shaoping},
+ title = {Evaluating Web Search with a Bejeweled Player Model},
+ booktitle = {Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+ series = {SIGIR '17},
+ year = {2017},
+ isbn = {978-1-4503-5022-8},
+ location = {Shinjuku, Tokyo, Japan},
+ pages = {425--434},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/3077136.3080841},
+ doi = {10.1145/3077136.3080841},
+ acmid = {3080841},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {benefit and cost, evaluation metrics, user model},
+} 
+
 
 '''
 
