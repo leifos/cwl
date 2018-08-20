@@ -7,6 +7,8 @@ import logging
 Time Biased Gain
 #TODO(leifos) add reference to Smucker & Clarke
 
+H is the halflife which stipulates how quickly the gain decays over time
+
 @inproceedings{Smucker:2012:TCE:2348283.2348300,
  author = {Smucker, Mark D. and Clarke, Charles L.A.},
  title = {Time-based Calibration of Effectiveness Measures},

@@ -10,6 +10,19 @@ from measures.cwl_metrics import CWLMetric
 
 #todo(leifos): Still need to convert Paul's verision of AP from R to Python..
 
+
+@inproceedings{Robertson:2010:EAP:1835449.1835550,
+ author = {Robertson, Stephen E. and Kanoulas, Evangelos and Yilmaz, Emine},
+ title = {Extending Average Precision to Graded Relevance Judgments},
+ booktitle = {Proceedings of the 33rd International ACM SIGIR Conference on Research and Development in Information Retrieval},
+ series = {SIGIR '10},
+ year = {2010},
+ location = {Geneva, Switzerland},
+ pages = {603--610},
+ numpages = {8},
+ url = {http://doi.acm.org/10.1145/1835449.1835550}
+} 
+
 '''
 
 class APCWLMetric(CWLMetric):

@@ -7,6 +7,21 @@ Reciprocal Rank
 and 
 
 ERR
+
+@inproceedings{Chapelle:2009:ERR:1645953.1646033,
+ author = {Chapelle, Olivier and Metlzer, Donald and Zhang, Ya and Grinspan, Pierre},
+ title = {Expected Reciprocal Rank for Graded Relevance},
+ booktitle = {Proceedings of the 18th ACM Conference on Information and Knowledge Management},
+ series = {CIKM '09},
+ year = {2009},
+ location = {Hong Kong, China},
+ pages = {621--630},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/1645953.1646033}
+} 
+
+
+
 '''
 
 
