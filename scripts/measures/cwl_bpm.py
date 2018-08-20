@@ -44,16 +44,9 @@ hb and hc are therefore scaling parameters.
  booktitle = {Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval},
  series = {SIGIR '17},
  year = {2017},
- isbn = {978-1-4503-5022-8},
  location = {Shinjuku, Tokyo, Japan},
  pages = {425--434},
- numpages = {10},
  url = {http://doi.acm.org/10.1145/3077136.3080841},
- doi = {10.1145/3077136.3080841},
- acmid = {3080841},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {benefit and cost, evaluation metrics, user model},
 } 
 
 

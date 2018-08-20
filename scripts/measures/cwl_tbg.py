@@ -34,7 +34,10 @@ class TBGCWLMetric(CWLMetric):
 
         cvec = []
         for i in range(0,len(wvec)-1):
-            cvec.append( wvec[i+1]/ wvec[i])
+            if(wvec[i]>0.0):
+                cvec.append( wvec[i+1]/ wvec[i])
+            else:
+                cvec.append(0.0)
 
         cvec.append(0.0)
         cvec = np.array(cvec)

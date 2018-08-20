@@ -10,7 +10,7 @@ from measures.cwl_inst import *
 from measures.cwl_insq import *
 from measures.cwl_tbg import *
 from measures.cwl_bpm import *
-
+from measures.cwl_umeasure import *
 
 class Ranking(object):
     def __init__(self, topic_id, gain_handler, cost_handler=None):
@@ -63,7 +63,9 @@ class CWLRuler(object):
                          BPMCWLMetric(1.2,10),
                          BPMDCWLMetric(1,1000),
                          BPMDCWLMetric(1000,10),
-                         BPMDCWLMetric(1.2,10)
+                         BPMDCWLMetric(1.2,10),
+                         UMeasureCWLMetric(50),
+                         UMeasureCWLMetric(10)
 
                          ]
 

@@ -4,9 +4,12 @@ from measures.cwl_metrics import CWLMetric
 
 
 '''
-Average Precision
+(Graded) Average Precision
 
-#todo(leifos): Can we do GAP and other variations of AP?
+#todo(leifos): Add Reference to AP and GAP.
+
+#todo(leifos): Still need to convert Paul's verision of AP from R to Python..
+
 '''
 
 class APCWLMetric(CWLMetric):

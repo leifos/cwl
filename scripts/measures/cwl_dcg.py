@@ -6,6 +6,11 @@ from measures.cwl_metrics import CWLMetric
 '''
 Discounted Cumulative Gain: scaled so that the discount is a probability distribution
 
+k is the rank cut off i.e number of items to be examined
+
+#TODO(leifos): Don't we have to re-scaled the weighting is k is less than infinite?
+
+
 @article{Jarvelin:2002:CGE:582415.582418,
  author = {J\"{a}rvelin, Kalervo and Kek\"{a}l\"{a}inen, Jaana},
  title = {Cumulated Gain-based Evaluation of IR Techniques},

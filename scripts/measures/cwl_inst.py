@@ -5,13 +5,24 @@ from measures.cwl_metrics import CWLMetric
 
 '''
 # INST is from Moffat et al., Australasian Document Computing Symposium 2015
-C.fn.INST <- function(T) {
-  # depends on rank and how much of what we expected has been seen so far
-  function(R, i) {
-    Ti <- T-cumsum(R)
-    ((i+T+Ti-1) / (i+T+Ti)) ** 2
-  }
-}
+
+T: Is the desired amount of relevant items or gain, 
+depending on whether gain is binary (0,1) or graded (0..1.0)
+
+@inproceedings{Moffat:2015:IAM:2838931.2838938,
+ author = {Moffat, Alistair and Bailey, Peter and Scholer, Falk and Thomas, Paul},
+ title = {INST: An Adaptive Metric for Information Retrieval Evaluation},
+ booktitle = {Proceedings of the 20th Australasian Document Computing Symposium},
+ series = {ADCS '15},
+ year = {2015},
+ location = {Parramatta, NSW, Australia},
+ pages = {5:1--5:4},
+ articleno = {5},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/2838931.2838938}} 
+
+
+
 '''
 
 class INSTCWLMetric(CWLMetric):
