@@ -65,7 +65,7 @@ class UMeasureCWLMetric(CWLMetric):
 
         # now normalize the wvec to sum to one.
         wvec = np.divide(np.array(wvec), norm)
-        print(wvec[-20:-10])
+
         logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
         return wvec
 

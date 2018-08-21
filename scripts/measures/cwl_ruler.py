@@ -11,6 +11,7 @@ from measures.cwl_insq import *
 from measures.cwl_tbg import *
 from measures.cwl_bpm import *
 from measures.cwl_umeasure import *
+from measures.cwl_ift import *
 
 class Ranking(object):
     def __init__(self, topic_id, gain_handler, cost_handler=None):
@@ -65,8 +66,15 @@ class CWLRuler(object):
                          BPMDCWLMetric(1000,10),
                          BPMDCWLMetric(1.2,10),
                          UMeasureCWLMetric(50),
-                         UMeasureCWLMetric(10)
-
+                         UMeasureCWLMetric(10),
+                         IFTGoalCWLMetric(2.0, 0.9, 1),
+                         IFTGoalCWLMetric(2.0, 0.9, 10),
+                         IFTGoalCWLMetric(2.0, 0.9, 100),
+                         IFTRateCWLMetric(0.2, 0.9, 1),
+                         IFTRateCWLMetric(0.2, 0.9, 10),
+                         IFTRateCWLMetric(0.2, 0.9, 100),
+                         IFTGoalRateCWLMetric(2.0,0.9,10, 0.2, 0.9, 10),
+                         IFTGoalRateCWLMetric(2.0,0.9,100, 0.2, 0.9, 100),
                          ]
 
         '''
