@@ -29,7 +29,7 @@ class INSTCWLMetric(CWLMetric):
 
     def __init__(self, T = 1.0):
         super(CWLMetric, self).__init__()
-        self.metric_name = "INST T={0}    ".format(T)
+        self.metric_name = "INST-T={0}    ".format(T)
         self.T = T
 
     def c_vector(self, gains, costs=None):

@@ -24,7 +24,7 @@ U-Measure
 class UMeasureCWLMetric(CWLMetric):
     def __init__(self, L=1000):
         super(CWLMetric, self).__init__()
-        self.metric_name = "U L@{0} ".format(L)
+        self.metric_name = "U-L@{0} ".format(L)
         self.L = L
 
     def c_vector(self, gains, costs):

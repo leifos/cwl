@@ -27,7 +27,7 @@ k is the rank cut off i.e number of items to be examined
 class SDCGCWLMetric(CWLMetric):
     def __init__(self, k):
         super(CWLMetric, self).__init__()
-        self.metric_name = "SDCG@{0} ".format(k)
+        self.metric_name = "SDCG-k@{0} ".format(k)
         self.k = k
 
     def c_vector(self, gains, costs=None):

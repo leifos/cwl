@@ -38,8 +38,9 @@ Example: python cwl_eval.py test_qrel_file test_result_file -c cost_file
 
 
 **Output**
-A tab/space seperated file that contains:
+A seven column tab/space seperated file that contains:
 
+- Topic ID
 - Metric Name
 - Expected Utility Per Item (EU/I)
 - Expected Utility (EU)

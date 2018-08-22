@@ -102,7 +102,7 @@ class CWLMetric(object):
         return self.expected_total_utility
 
     def report(self):
-        print("{0} {1} {2:.3f} {3:.3f} {4:.3f} {5:.3f} {6:.3f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
+        print("{0}\t{1}\t{2:.3f}\t{3:.3f}\t{4:.3f}\t{5:.3f}\t{6:.3f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
 
 
 
