@@ -14,10 +14,10 @@ from measures.cwl_umeasure import *
 from measures.cwl_ift import *
 
 class Ranking(object):
-    def __init__(self, topic_id, gain_handler, cost_handler=None):
+    def __init__(self, topic_id, gain_handler, cost_dict=None):
         self.topic_id = topic_id
         self.qgains = gain_handler
-        self.qcosts = cost_handler
+        self.qcosts = cost_dict
         self.gains = []
         self.costs = []
         #self.seen = {}
@@ -31,6 +31,11 @@ class Ranking(object):
     def get_cost(self, doc_id, element_type):
         if self.qcosts is None:
             return 1.0
+        else:
+            if element_type in self.qcosts:
+                return self.qcosts[element_type]
+            else:
+                return 1.0
         # Add in object accessor to map element type to costs for the docid
         return 1.0
 
@@ -67,6 +72,7 @@ class CWLRuler(object):
                          BPMDCWLMetric(1.2,10),
                          UMeasureCWLMetric(50),
                          UMeasureCWLMetric(10),
+                         TBGCWLMetric(22),
                          IFTGoalCWLMetric(2.0, 0.9, 1),
                          IFTGoalCWLMetric(2.0, 0.9, 10),
                          IFTGoalCWLMetric(2.0, 0.9, 100),

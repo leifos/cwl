@@ -12,6 +12,7 @@ class CWLMetric(object):
         self.expected_cost = 0.0
         self.expected_total_utility = 0.0
         self.expected_total_cost = 0.0
+        self.expected_items = 0.0
         self.metric_name = "Def"
         self.ranking = None
 
@@ -96,11 +97,12 @@ class CWLMetric(object):
 
         self.expected_cost = np.sum( np.dot(wvec, costs) )
         self.expected_total_cost = np.sum(np.dot(lvec, cum_costs))
+        self.expected_items = 1.0 / wvec[0]
 
         return self.expected_total_utility
 
     def report(self):
-        print("{0} {1} {2:.3f} {3:.3f} {4:.3f} {5:.3f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost))
+        print("{0} {1} {2:.3f} {3:.3f} {4:.3f} {5:.3f} {6:.3f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
 
 
 

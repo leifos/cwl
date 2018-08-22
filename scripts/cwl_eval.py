@@ -9,10 +9,36 @@ from seeker.trec_qrel_handler import TrecQrelHandler
 from measures.cwl_ruler import Ranking, CWLRuler
 
 
+def read_in_cost_file(cost_file):
 
-def main(results_file, qrel_file):
+    costs = dict()
+    with open(cost_file, "r") as cf:
+        while cf:
+            line = cf.readline()
+            if not line:
+                break
+            (element_type, cost) = line.split()
+            element_type = element_type.strip()
+            costs[element_type] = float(cost)
+
+    return costs
+
+
+def check_file_exists(filename):
+    if filename and not os.path.exists(filename):
+        print("{0} Not Found".format(filename))
+        quit(1)
+
+
+def main(results_file, qrel_file, cost_file=None ):
 
     qrh = TrecQrelHandler(qrel_file)
+
+    costs = None
+    # read in cost file - if cost file exists
+    if cost_file:
+        costs = read_in_cost_file(cost_file)
+
 
     cwl_ruler = CWLRuler()
 
@@ -42,7 +68,7 @@ def main(results_file, qrel_file):
                 curr_topic_id = topic_id
                 # reset seen list
 
-                ranking = Ranking(curr_topic_id, qrh)
+                ranking = Ranking(curr_topic_id, qrh, costs)
                 ranking.add(doc_id, element_type)
 
         #Perform the Measurements on the last topic
@@ -69,10 +95,17 @@ if __name__ == "__main__":
     gain_file = args.gain_file
     result_file = args.result_file
 
-    if not os.path.exists( result_file ):
-        print("Result File Not Found")
-        quit(1)
-    if not os.path.exists(gain_file):
-        print("Gain/Qrel Not Found")
-        quit(1)
-    main(result_file, gain_file)
+    cost_file = None
+    if args.cost_file:
+        cost_file = args.cost_file
+
+    metrics_file = None
+    if args.metrics_file:
+        metrics_file = args.metrics_file
+
+    check_file_exists(result_file)
+    check_file_exists(gain_file)
+    check_file_exists(cost_file)
+    check_file_exists(metrics_file)
+
+    main(result_file, gain_file, cost_file)
