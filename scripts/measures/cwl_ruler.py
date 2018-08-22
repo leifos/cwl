@@ -40,9 +40,9 @@ class Ranking(object):
         return 1.0
 
     def report(self):
-        print(self.topic_id,self.gains)
-        print(self.topic_id,self.costs)
-
+        #print(self.topic_id,self.gains)
+        #print(self.topic_id,self.costs)
+        pass
 
 
 class CWLRuler(object):

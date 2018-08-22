@@ -58,10 +58,16 @@ Metrics within CWL EVAL
 For each of the metrics provided in cwl_eval.py, the user model for each
 measure has been extracted and encoded within the C/W/L framework.
 
-As a result, all metrics report approximations of the Expected Utility per Item (EU/I),
-Expected Utility (EU), Expected Cost per Item (EC/I), Expected Cost (EC), and the Expected Number of Items to be Examined (I)
+All weightings have been converted to probabilities.
 
-Note that:
+As a result, all metrics report a series of values (not a single value):
+ - Expected Utility per Item (EU/I),
+ - Expected Utility (EU) or (ETU),
+ - Expected Cost per Item (EC/I),
+ - Expected Cost (EC) or (ETC)
+ - Expected Number of Items to be Examined (I)
+
+However, all the values are instrinically related, such that:
 
 EU = EU/I * I
 
@@ -69,3 +75,30 @@ and
 
 EC = EC/I * I
 
+and
+
+ER = EU/EC
+
+where ER is the expected rate of gain over cost.
+
+If the cost per item is 1.0, then the expected cost per item is 1.0,
+and the expected cost EC will be equal to I.
+
+Costs can be specified in whatever unit is desired. i.e seconds, characters, words, etc.
+
+**List of Metrics**
+
+- RR - Reciprocal Rank
+- ERR - Expected Reciprocal Rank
+- BPM-Static - Bejewelled Player Model  - Static
+- BPM-Dynamic - Bejewelled Player Model - Dynamic
+- UMeasure - U-Measure
+- TBG - Time Biased Gain
+- P@k - Precision At k
+- RBP - Rank Biased Precision
+- IFT-C1 - Information Foraging Theory (Goal)
+- IFT-C2 - Information Foraging Theory (Rate)
+- IFT-C1-C2 - Information Foraging Theory (Goal and Rate)
+- INST T
+- INSQ T
+- DCG@k - Discounted Cumulative Gain at k
