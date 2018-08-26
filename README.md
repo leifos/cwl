@@ -146,7 +146,7 @@ Costs can be specified in whatever unit is desired. i.e seconds, characters, wor
 **Sample Output from cwl_eval.py where costs are set based on cost_file **
 
 
-    python cwl_eval.py test_qrel_file test_result_file -c cost_file
+    python cwl_eval.py test_qrel_file test_result_file -c test_cost_file
 
 | Topic| Metric                                             | EU/I | EU | EC/I | EC | I |
 |------|---------------------------------------------------|-------|-------|-------|--------|--------|
@@ -181,3 +181,84 @@ Costs can be specified in whatever unit is desired. i.e seconds, characters, wor
 | T1   | IFT-C2-A@0.2-b2@0.9-R2@100                        | 0.360 | 1.786 | 2.388 | 11.832 | 4.954  |
 | T1   | IFT-C1-C2-T@2.0-b1@0.9-R1@10-A@2.0-b2@0.9-R2@10   | 0.413 | 1.361 | 1.990 | 6.552  | 3.293  |
 | T1   | IFT-C1-C2-T@2.0-b1@0.9-R1@100-A@2.0-b2@0.9-R2@100 | 0.360 | 1.786 | 2.388 | 11.832 | 4.954  |
+
+
+** Using the metrics_file to specify the metrics**
+
+    python cwl_eval.py test_qrel_file test_result_file -m test_metrics_file
+
+if a metrics_file is not specified, CWL Eval will default to a set of metrics
+defined in ``ruler/measures/cwl_ruler.py''
+
+If the metrics_file is specified, CWL Eval will instantite and use the metrics listed.
+An example test_metrics_file is provided, which includes the following:
+
+    PrecisionCWLMetric(1)
+    PrecisionCWLMetric(5)
+    PrecisionCWLMetric(10)
+    PrecisionCWLMetric(20)
+    RBPCWLMetric(0.9)
+    SDCGCWLMetric(10)
+    RRCWLMetric()
+    APCWLMetric()
+    INSTCWLMetric(1)
+    INSQCWLMetric(1)
+    BPMCWLMetric(1,1000)
+    BPMCWLMetric(1000,10)
+    BPMCWLMetric(1.2,10)
+    BPMDCWLMetric(1,1000)
+    BPMDCWLMetric(1000,10)
+    BPMDCWLMetric(1.2,10)
+    UMeasureCWLMetric(50)
+    UMeasureCWLMetric(10)
+    TBGCWLMetric(22)
+    IFTGoalCWLMetric(2.0, 0.9, 1)
+    IFTGoalCWLMetric(2.0, 0.9, 10)
+    IFTGoalCWLMetric(2.0, 0.9, 100)
+    IFTRateCWLMetric(0.2, 0.9, 1)
+    IFTRateCWLMetric(0.2, 0.9, 10)
+    IFTRateCWLMetric(0.2, 0.9, 100)
+    IFTGoalRateCWLMetric(2.0,0.9,10, 0.2, 0.9, 10)
+    IFTGoalRateCWLMetric(2.0,0.9,100, 0.2, 0.9, 100)
+
+To specify which metric you desire, inspect the metrics classes in ``ruler/measures/''
+to see what metrics are avaiable, and how the parameterize them.
+
+For example if you wanted Precision Based Measures then you can list them as follows:
+
+    PrecisionCWLMetric(1)
+    PrecisionCWLMetric(2)
+    PrecisionCWLMetric(3)
+    PrecisionCWLMetric(4)
+    PrecisionCWLMetric(5)
+    PrecisionCWLMetric(6)
+    PrecisionCWLMetric(7)
+    PrecisionCWLMetric(8)
+    PrecisionCWLMetric(9)
+    PrecisionCWLMetric(10)
+    PrecisionCWLMetric(11)
+    PrecisionCWLMetric(12)
+    PrecisionCWLMetric(13)
+    PrecisionCWLMetric(14)
+    PrecisionCWLMetric(15)
+    PrecisionCWLMetric(16)
+    PrecisionCWLMetric(17)
+    PrecisionCWLMetric(18)
+    PrecisionCWLMetric(19)
+    PrecisionCWLMetric(20)
+
+While if you wanted Rank Biased Precision Measures, then you can vary the patience parameter:
+
+    RBPCWLMetric(0.1)
+    RBPCWLMetric(0.2)
+    RBPCWLMetric(0.3)
+    RBPCWLMetric(0.4)
+    RBPCWLMetric(0.5)
+    RBPCWLMetric(0.6)
+    RBPCWLMetric(0.7)
+    RBPCWLMetric(0.8)
+    RBPCWLMetric(0.9)
+    RBPCWLMetric(0.95)
+    RBPCWLMetric(0.99)
+
+
