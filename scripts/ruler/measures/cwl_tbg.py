@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from measures.cwl_metrics import CWLMetric
+from ruler.measures.cwl_metrics import CWLMetric
 import logging
 
 '''

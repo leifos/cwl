@@ -1,5 +1,5 @@
 import numpy as np
-from measures.cwl_metrics import CWLMetric
+from ruler.measures.cwl_metrics import CWLMetric
 
 '''
 Bejewelled Player Model (BPM)
@@ -48,7 +48,6 @@ hb and hc are therefore scaling parameters.
  pages = {425--434},
  url = {http://doi.acm.org/10.1145/3077136.3080841},
 } 
-
 
 '''
 

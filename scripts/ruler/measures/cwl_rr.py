@@ -1,5 +1,5 @@
 import numpy as np
-from measures.cwl_metrics import CWLMetric
+from ruler.measures.cwl_metrics import CWLMetric
 
 '''
 Reciprocal Rank

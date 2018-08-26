@@ -2,11 +2,9 @@ __author__ = "Leif @leifos Azzopardi"
 
 
 import os
-import sys
-import re
 import argparse
 from seeker.trec_qrel_handler import TrecQrelHandler
-from measures.cwl_ruler import Ranking, CWLRuler
+from ruler.cwl_ruler import Ranking, CWLRuler
 
 
 def read_in_cost_file(cost_file):
@@ -30,7 +28,7 @@ def check_file_exists(filename):
         quit(1)
 
 
-def main(results_file, qrel_file, cost_file=None ):
+def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
 
     qrh = TrecQrelHandler(qrel_file)
 
@@ -40,7 +38,7 @@ def main(results_file, qrel_file, cost_file=None ):
         costs = read_in_cost_file(cost_file)
 
 
-    cwl_ruler = CWLRuler()
+    cwl_ruler = CWLRuler(metrics_file)
 
     curr_topic_id = None
 
@@ -108,4 +106,4 @@ if __name__ == "__main__":
     check_file_exists(cost_file)
     check_file_exists(metrics_file)
 
-    main(result_file, gain_file, cost_file)
+    main(result_file, gain_file, cost_file, metrics_file)
