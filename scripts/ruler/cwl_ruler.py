@@ -125,6 +125,9 @@ class CWLRuler(object):
         for i in range(0, len(args)):
             val = args[i]
             
+            if val == '':
+                continue
+            
             if '.' in val:
                 casted_args.append(float(val))
             else:
