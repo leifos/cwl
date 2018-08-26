@@ -119,13 +119,23 @@ class CWLRuler(object):
         """
         classes = self.get_class_list()
         ref = None
-
+        casted_args = []
+        
+        # Change the args to ints/floats. Assuming that that is all that is required.
+        for i in range(0, len(args)):
+            val = args[i]
+            
+            if '.' in val:
+                casted_args.append(float(val))
+            else:
+                casted_args.append(int(val))
+        
         for class_tuple in classes:
             class_name = class_tuple[0]
             class_ref = class_tuple[1]
 
             if class_name == requested_class_name:
-                ref = class_ref(*args)  # Instantiate the class with parameters! If you want to use parameter names, try kwargs instead.
+                ref = class_ref(*casted_args)  # Instantiate the class with parameters! If you want to use parameter names, try kwargs instead.
 
         # If ref is not set, the class was not located!
         if ref is None:
@@ -140,12 +150,13 @@ class CWLRuler(object):
         """
         modules = []
         classes = []
-        package_name = 'measures'
+        dir_path = 'ruler/measures'
+        package_path = 'ruler.measures'
 
         # List through the modules in the specified package, ignoring __init__.py, and append them to a list.
-        for f in os.listdir(package_name):
+        for f in os.listdir(dir_path):
             if f.endswith('.py') and not f.startswith('__init__'):
-                modules.append('{0}.{1}'.format(package_name, os.path.splitext(f)[0]))
+                modules.append('{0}.{1}'.format(package_path, os.path.splitext(f)[0]))
 
         module_references = []
 
