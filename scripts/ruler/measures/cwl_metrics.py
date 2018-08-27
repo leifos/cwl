@@ -18,36 +18,25 @@ class CWLMetric(object):
 
 
     def c_vector(self, gains, costs=None):
-        # precision for k = len(gains)
         cvec = np.ones(len(gains))
         return cvec
 
     def l_vector(self, gains, costs=None):
         cvec = self.c_vector(gains, costs)
         logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "cvec", cvec[0:11]))
-
         cshift = np.append(np.array([1.0]), cvec[0:-1])
         lvec = np.cumprod(cshift)
-        #tmp = np.subtract(np.ones(len(cvec)),cvec)
         lvec = np.multiply(lvec,(np.subtract(np.ones(len(cvec)),cvec)))
         logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "lvec", lvec[0:11]))
-        #print(self.metric_name, "lvec", lvec[0:10])
         return lvec
 
     def w_vector(self, gains, costs=None):
         cvec = self.c_vector(gains, costs)
-        #print(cvec)
         cvec = cvec[0:-1]
-        #print("cvec-1", cvec)
         cvec_prod = np.cumprod(cvec)
-        #print(cvec_prod)
         cvec_prod = np.pad(cvec_prod,(1,0),'constant',constant_values=(1.0))
-        #print(cvec_prod)
         w1 = np.divide(1.0, np.sum(cvec_prod))
-        #print(w1)
-        #print(cvec_prod[1:len(cvec_prod)])
         w_tail = np.multiply(cvec_prod[1:len(cvec_prod)],w1)
-        #print(w_tail)
         wvec = np.append(w1, w_tail)
         logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:11]))
         return wvec
@@ -66,29 +55,29 @@ class CWLMetric(object):
 
     def pad_vector_zeros(self, vec1, n):
         if len(vec1) < n:
-
             return self.pad_vector(vec1, n, 0.0)
+        else:
+            return vec1[0:n-1]
 
     def pad_vector_ones(self, vec1, n):
         if len(vec1) < n:
             return self.pad_vector(vec1,n, 1.0)
+        else:
+            return vec1[0:n-1]
 
 
     def measure(self, ranking):
-
         self.ranking = ranking
         gains = np.array(ranking.gains)
+
         costs = np.array(ranking.costs)
         gains = self.pad_vector_zeros(gains, 1000)
         costs = self.pad_vector_ones(costs, 1000)
-
         #create the c / w / l vectors for the gain vector
 
         wvec = self.w_vector(gains, costs)
         lvec = self.l_vector(gains, costs)
 
-        #gains = self.pad_vector(gains, wvec)
-        #costs = self.pad_vector(costs, wvec)
         cum_gains = np.cumsum(gains)
         cum_costs = np.cumsum(costs)
         

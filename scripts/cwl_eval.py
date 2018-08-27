@@ -36,8 +36,6 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
     # read in cost file - if cost file exists
     if cost_file:
         costs = read_in_cost_file(cost_file)
-
-
     cwl_ruler = CWLRuler(metrics_file)
 
     curr_topic_id = None
@@ -64,6 +62,7 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
 
                 # new topic
                 curr_topic_id = topic_id
+
                 # reset seen list
 
                 ranking = Ranking(curr_topic_id, qrh, costs)

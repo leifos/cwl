@@ -25,6 +25,7 @@ class Ranking(object):
         self.qcosts = cost_dict
         self.gains = []
         self.costs = []
+        self.show_report = False
         #self.seen = {}
 
     def add(self, doc_id, element_type):
@@ -45,10 +46,10 @@ class Ranking(object):
         return 1.0
 
     def report(self):
-        #print(self.topic_id,self.gains)
-        #print(self.topic_id,self.costs)
-        pass
-
+        if self.show_report:
+            print("Topic: {0}".format(self.topic_id))
+            print(self.topic_id,self.gains[:10])
+            print(self.topic_id,self.costs[:10])
 
 class CWLRuler(object):
 
@@ -107,7 +108,6 @@ class CWLRuler(object):
 
             class_name = line_split[0]
             parameters = line_split[1].split(',')
-
             self.metrics.append(self.instantiate_class(class_name, *parameters))
 
         f.close()
@@ -153,11 +153,12 @@ class CWLRuler(object):
         """
         modules = []
         classes = []
-        dir_path = 'ruler/measures'
+        path = os.path.dirname(os.path.abspath(__file__))
+        measures_path = os.path.join(path,'measures')
         package_path = 'ruler.measures'
 
         # List through the modules in the specified package, ignoring __init__.py, and append them to a list.
-        for f in os.listdir(dir_path):
+        for f in os.listdir(measures_path):
             if f.endswith('.py') and not f.startswith('__init__'):
                 modules.append('{0}.{1}'.format(package_path, os.path.splitext(f)[0]))
 
