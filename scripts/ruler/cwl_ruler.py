@@ -188,3 +188,14 @@ class CWLRuler(object):
         print(self.metrics)
         print("END")
         print()
+
+    def save_bibtex(self,bib_file):
+
+        bib_list = []
+        for m in self.metrics:
+            if m.bibtex not in bib_list:
+                bib_list.append(m.bibtex)
+        with open(bib_file,"w") as bf:
+            for bib in bib_list:
+                bf.write(bib)
+                bf.write("\n")

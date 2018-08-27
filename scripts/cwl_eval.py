@@ -77,7 +77,7 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
         #Perform aggregration over all topics
 
         #Compute residuals?
-
+    cwl_ruler.save_bibtex("test.bib")
 
 if __name__ == "__main__":
 
