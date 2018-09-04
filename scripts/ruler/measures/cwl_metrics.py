@@ -15,6 +15,7 @@ class CWLMetric(object):
         self.expected_items = 0.0
         self.metric_name = "Def"
         self.ranking = None
+        self.bibtex = ""
 
 
     def c_vector(self, gains, costs=None):

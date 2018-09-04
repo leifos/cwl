@@ -9,6 +9,7 @@ class INSQCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "INSQ-T={0}    ".format(T)
         self.T = T
+        self.bibtex = ""
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)

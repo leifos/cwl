@@ -27,6 +27,16 @@ class IFTGoalCWLMetric(CWLMetric):
         self.b1 = b1
         self.T = T
         self.R1 = R1
+        self.bibtex = "@inproceedings{Azzopardi:2018:MUS:3209978.3210027," \
+                      "author = {Azzopardi, Leif and Thomas, Paul and Craswell, Nick}," \
+                      "title = {Measuring the Utility of Search Engine Result Pages: An Information Foraging Based Measure}," \
+                      "booktitle = {The 41st International ACM SIGIR Conference on Research \&\#38; Development in Information Retrieval}," \
+                      "series = {SIGIR '18}," \
+                      "year = {2018}," \
+                      "location = {Ann Arbor, MI, USA}," \
+                      "pages = {605--614}," \
+                      "numpages = {10}," \
+                      "} "
 
     def c_vector(self, gains, costs=None):
 
@@ -52,6 +62,17 @@ class IFTRateCWLMetric(CWLMetric):
         self.b2 = b2
         self.A = A
         self.R2 = R2
+        self.bibtex = "@inproceedings{Azzopardi:2018:MUS:3209978.3210027," \
+                      "author = {Azzopardi, Leif and Thomas, Paul and Craswell, Nick}," \
+                      "title = {Measuring the Utility of Search Engine Result Pages: An Information Foraging Based Measure}," \
+                      "booktitle = {The 41st International ACM SIGIR Conference on Research \&\#38; Development in Information Retrieval}," \
+                      "series = {SIGIR '18}," \
+                      "year = {2018}," \
+                      "location = {Ann Arbor, MI, USA}," \
+                      "pages = {605--614}," \
+                      "numpages = {10}," \
+                      "} "
+
 
     def c_vector(self, gains, costs):
 
@@ -81,6 +102,19 @@ class IFTGoalRateCWLMetric(CWLMetric):
         self.b2 = b2
         self.A = A
         self.R2 = R2
+        self.bibtex = """
+        @inproceedings{Azzopardi:2018:MUS:3209978.3210027,
+        author = {Azzopardi, Leif and Thomas, Paul and Craswell, Nick},
+        title = {Measuring the Utility of Search Engine Result Pages: An Information Foraging Based Measure},
+        booktitle = {The 41st International ACM SIGIR Conference on Research \&\#38; Development in Information Retrieval},
+        series = {SIGIR '18},
+        year = {2018},
+        location = {Ann Arbor, MI, USA},
+        pages = {605--614},
+        numpages = {10},
+        } 
+        """
+
 
     def c_vector(self, gains, costs):
 

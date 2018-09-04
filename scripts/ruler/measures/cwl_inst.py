@@ -19,7 +19,8 @@ depending on whether gain is binary (0,1) or graded (0..1.0)
  pages = {5:1--5:4},
  articleno = {5},
  numpages = {4},
- url = {http://doi.acm.org/10.1145/2838931.2838938}} 
+ url = {http://doi.acm.org/10.1145/2838931.2838938}
+ } 
 
 
 
@@ -31,6 +32,20 @@ class INSTCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "INST-T={0}    ".format(T)
         self.T = T
+        self.bibtex = """
+        @inproceedings{Moffat:2015:IAM:2838931.2838938,
+        author = {Moffat, Alistair and Bailey, Peter and Scholer, Falk and Thomas, Paul},
+        title = {INST: An Adaptive Metric for Information Retrieval Evaluation},
+        booktitle = {Proceedings of the 20th Australasian Document Computing Symposium},
+        series = {ADCS '15},
+        year = {2015},
+        location = {Parramatta, NSW, Australia},
+        pages = {5:1--5:4},
+        articleno = {5},
+        numpages = {4},
+        url = {http://doi.acm.org/10.1145/2838931.2838938}
+        } 
+        """
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)

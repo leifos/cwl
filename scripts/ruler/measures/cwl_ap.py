@@ -28,7 +28,8 @@ from ruler.measures.cwl_metrics import CWLMetric
 class APCWLMetric(CWLMetric):
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "AP     "
+        self.metric_name = "AP"
+        self.bibtex = ""
 
     def c_vector(self, gains, costs=None):
         '''

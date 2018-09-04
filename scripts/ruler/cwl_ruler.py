@@ -189,7 +189,7 @@ class CWLRuler(object):
         print("END")
         print()
 
-    def save_bibtex(self,bib_file):
+    def save_bibtex(self, bib_file):
 
         bib_list = []
         for m in self.metrics:

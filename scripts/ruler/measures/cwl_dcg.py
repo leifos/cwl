@@ -21,6 +21,7 @@ k is the rank cut off i.e number of items to be examined
  pages = {422--446},
  numpages = {25},
  url = {http://doi.acm.org/10.1145/582415.582418},
+ }
 
 '''
 
@@ -29,6 +30,17 @@ class SDCGCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "SDCG-k@{0} ".format(k)
         self.k = k
+        self.bibtex = "@article{Jarvelin:2002:CGE:582415.582418," \
+                      "author = {J\"{a}rvelin, Kalervo and Kek\"{a}l\"{a}inen, Jaana}," \
+                      "title = {Cumulated Gain-based Evaluation of IR Techniques}," \
+                      "journal = {ACM Trans. Inf. Syst.}," \
+                      "volume = {20}," \
+                      "number = {4}," \
+                      "year = {2002}," \
+                      "pages = {422--446}," \
+                      "numpages = {25}," \
+                      "url = {http://doi.acm.org/10.1145/582415.582418}," \
+                      "}"
 
     def c_vector(self, gains, costs=None):
 

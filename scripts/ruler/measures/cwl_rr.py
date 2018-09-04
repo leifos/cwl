@@ -29,7 +29,8 @@ class RRCWLMetric(CWLMetric):
 
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "RR     "
+        self.metric_name = "RR"
+        self.bibtex = ""
 
     def c_vector(self, gains, costs=None):
 

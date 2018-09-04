@@ -22,6 +22,8 @@ class PrecisionCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "P@{0}    ".format(k)
         self.k = k
+        self.bibtex = ""
+
 
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)

@@ -26,6 +26,17 @@ class UMeasureCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "U-L@{0} ".format(L)
         self.L = L
+        self.bibtex = "@inproceedings{Sakai:2013:SRR:2484028.2484031," \
+                      "author = {Sakai, Tetsuya and Dou, Zhicheng}," \
+                      "title = {Summaries, Ranked Retrieval and Sessions: A Unified Framework for Information Access Evaluation}," \
+                      "booktitle = {Proceedings of the 36th International ACM SIGIR Conference on Research and Development in Information Retrieval}," \
+                      "series = {SIGIR '13}," \
+                      " year = {2013}," \
+                      "location = {Dublin, Ireland}," \
+                      "pages = {473--482}," \
+                      "numpages = {10}," \
+                      " url = {http://doi.acm.org/10.1145/2484028.2484031}" \
+                      "} "
 
     def c_vector(self, gains, costs):
 

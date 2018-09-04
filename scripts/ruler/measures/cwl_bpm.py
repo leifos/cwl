@@ -59,6 +59,16 @@ class BPMCWLMetric(CWLMetric):
         self.metric_name = "BPM-Static-T={0}-K={1}".format(T,K)
         self.T = T # E_b the total amount of benefit desired
         self.K = K # E_c the total amount of cost or documents willing to be examined
+        self.bibtex = "@inproceedings{Zhang:2017:EWS:3077136.3080841," \
+                      "author = {Zhang, Fan and Liu, Yiqun and Li, Xin and Zhang, Min and Xu, Yinghui and Ma, Shaoping}," \
+                      "title = {Evaluating Web Search with a Bejeweled Player Model}," \
+                      "booktitle = {Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval}," \
+                      "series = {SIGIR '17}," \
+                      "year = {2017}," \
+                      "location = {Shinjuku, Tokyo, Japan}," \
+                      "pages = {425--434}," \
+                      "url = {http://doi.acm.org/10.1145/3077136.3080841}," \
+                      "} "
 
     def c_vector(self, gains, costs):
 
@@ -108,6 +118,16 @@ class BPMDCWLMetric(CWLMetric):
         self.hb = hb # the scaling factor to adjust the T constraint by
         self.hc = hc # the scaling factor to adjust the K constraint by
         self.gain_med = gain_med # i.e. rel_med to adjust the T and K by
+        self.bibtex = "@inproceedings{Zhang:2017:EWS:3077136.3080841," \
+                      "author = {Zhang, Fan and Liu, Yiqun and Li, Xin and Zhang, Min and Xu, Yinghui and Ma, Shaoping}," \
+                      "title = {Evaluating Web Search with a Bejeweled Player Model}," \
+                      "booktitle = {Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval}," \
+                      "series = {SIGIR '17}," \
+                      "year = {2017}," \
+                      "location = {Shinjuku, Tokyo, Japan}," \
+                      "pages = {425--434}," \
+                      "url = {http://doi.acm.org/10.1145/3077136.3080841}," \
+                      "} "
 
     def c_vector(self, gains, costs):
 
