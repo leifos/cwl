@@ -28,7 +28,7 @@ def check_file_exists(filename):
         quit(1)
 
 
-def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
+def main(results_file, qrel_file, cost_file=None, metrics_file=None, bib_file=None):
 
     qrh = TrecQrelHandler(qrel_file)
 
@@ -77,7 +77,8 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None ):
         #Perform aggregration over all topics
 
         #Compute residuals?
-    cwl_ruler.save_bibtex("test.bib")
+    if bib_file:
+        cwl_ruler.save_bibtex(bib_file)
 
 if __name__ == "__main__":
 
@@ -86,6 +87,8 @@ if __name__ == "__main__":
     arg_parser.add_argument("result_file", help="TREC formatted results file. Six column tab/space sep file with fields: topic_id element_type doc_id rank score run_id")
     arg_parser.add_argument("-c", "--cost_file", help="Costs associated with each element type specified in result file.", required=False)
     arg_parser.add_argument("-m", "--metrics_file", help="The list of metrics that are to be reported. If not specified, a set of default metrics will be reported. Tab/space sep file with fields: metric_name params", required=False)
+    arg_parser.add_argument("-b", "--bib_file", help="If specified, then the BibTeX for the measures used will be saved to the filename given.", required=False)
+
 
     args = arg_parser.parse_args()
 
@@ -100,9 +103,13 @@ if __name__ == "__main__":
     if args.metrics_file:
         metrics_file = args.metrics_file
 
+    bib_file = None
+    if args.bib_file:
+        bib_file = args.bib_file
+
     check_file_exists(result_file)
     check_file_exists(gain_file)
     check_file_exists(cost_file)
     check_file_exists(metrics_file)
 
-    main(result_file, gain_file, cost_file, metrics_file)
+    main(result_file, gain_file, cost_file, metrics_file, bib_file)
