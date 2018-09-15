@@ -76,12 +76,12 @@ class CWLRuler(object):
                          APCWLMetric(),
                          INSTCWLMetric(2.0),
                          INSQCWLMetric(2.0),
-                         BPMCWLMetric(2.0,10),
-                         BPMDCWLMetric(2.0,10),
+                         BPMCWLMetric(2.0, 10),
+                         BPMDCWLMetric(2.0, 10),
                          UMeasureCWLMetric(50),
                          TBGCWLMetric(22),
-                         IFTGoalRateCWLMetric(2.0,0.9,10, 0.2, 0.9, 10),
-                         IFTGoalRateCWLMetric(2.0,0.9,100, 0.2, 0.9, 100),
+                         IFTGoalRateCWLMetric(2.0, 0.9, 10, 0.2, 0.9, 10),
+                         IFTGoalRateCWLMetric(2.0, 0.9, 100, 0.2, 0.9, 100),
                          ]
 
     def measure(self, ranking):
