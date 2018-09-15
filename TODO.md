@@ -3,8 +3,6 @@ Todo List
 Jupyter Notebook Examples
   - Plots of C/W/L vectors for different metrics, gain/cost vectors
 
-Headings for output (flag)
-
 Tests
 
 Check AP function
