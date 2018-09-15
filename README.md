@@ -3,6 +3,7 @@ An evaluation script based on the C/W/L framework
 that is TREC Compatible and provides a replacement
 for INST_EVAL, RBP_EVAL, TBG_EVAL, UMeasure, TREC_EVAL
 
+Usage: cwl_eval.py <gain_file> <result_file> -c <cost_file> -m <metrics_file> -b <bibtex_file>
 
 Usage: cwl_eval.py <gain_file> <result_file> -c <cost_file> -m <metrics_file>
 
@@ -25,7 +26,8 @@ Usage: cwl_eval.py -h
                 If not specified, a set of default metrics will be reported
                 Tab/space sep file with fields: metric_name params
 
-
+<bibtex_file>: Specify this file if you would like the bibtex associated with the measures specified to be
+               output to a file called <bibtex_file>
 
 **Example without using a cost file.**
 
