@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import logging
 from ruler.measures.cwl_metrics import CWLMetric
 
 
@@ -38,16 +39,24 @@ class APCWLMetric(CWLMetric):
         :param costs:
         :return:
         '''
-        cvec = []
-        for i in range(0,len(gains)):
 
-            bot = np.sum(gains[i:len(gains)]/(i+1.0))
-            top = np.sum(gains[(i+1):len(gains)]/(i+1.0))
+        n = len(gains)
+        rii = []
+        cvec = []
+        for i in range(0,n):
+            rii.append(gains[i]/(i+1))
+
+
+        for i in range(0,n-1):
+            bot = np.sum(rii[i:n])
+            top = np.sum(rii[i+1:n])
 
             if top > 0.0:
                 cvec.append(top/bot)
             else:
                 cvec.append(0.0)
+
+        cvec.append(0.0)
 
         cvec = np.array(cvec)
 
