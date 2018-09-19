@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from ruler.measures.cwl_metrics import CWLMetric
-import logging
+
 
 '''
 U-Measure
@@ -40,10 +40,11 @@ class UMeasureCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "U-L@{0} ".format(self.L)
+
     def c_vector(self, gains, costs):
-
         wvec = self.w_vector(gains, costs)
-
         cvec = []
         for i in range(0,len(wvec)-1):
             if(wvec[i]>0.0):
@@ -57,12 +58,6 @@ class UMeasureCWLMetric(CWLMetric):
 
 
     def w_vector(self, gains, costs):
-        """
-
-        :param gains:
-        :param costs:
-        :return:
-        """
         wvec = []
         # to get the positions, cumulative sum the costs..
         # costs are assumed to length of each document
@@ -78,8 +73,6 @@ class UMeasureCWLMetric(CWLMetric):
 
         # now normalize the wvec to sum to one.
         wvec = np.divide(np.array(wvec), norm)
-
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
         return wvec
 
 

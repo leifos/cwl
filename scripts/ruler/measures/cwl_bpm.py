@@ -72,12 +72,14 @@ class BPMCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "BPM-Static-T={0}-K={1}".format(self.T,self.K)
+
+
     def c_vector(self, gains, costs):
 
         c_gain = np.cumsum(gains)
         c_cost = np.cumsum(costs)
-        #print(c_gain[0:11])
-        #print(c_cost[0:11])
 
         # GAIN Constraint
         rr_cvec = np.zeros(len(gains))
@@ -86,8 +88,6 @@ class BPMCWLMetric(CWLMetric):
         while i < len(gains) and (c_gain[i] < self.T):
             rr_cvec[i] = 1.0
             i = i + 1
-        #print(self.T, self.K)
-        #print("rrvec", rr_cvec[0:11])
         # COST Constraint
         p_cvec = np.zeros(len(costs))
         i = 0
@@ -96,7 +96,6 @@ class BPMCWLMetric(CWLMetric):
             p_cvec[i] = 1.0
             i = i + 1
 
-        #print("pvec", p_cvec[0:11])
         # combine the two continuation bectors
         bpm_cvec = np.zeros(len(costs))
         i = 0
@@ -104,7 +103,7 @@ class BPMCWLMetric(CWLMetric):
             if (rr_cvec[i] == 1.0) and (p_cvec[i] == 1.0):
                 bpm_cvec[i] = 1.0
             i = i + 1
-        #print("bpm", bpm_cvec[0:11])
+
         return bpm_cvec
 
 
@@ -133,6 +132,9 @@ class BPMDCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "BPM-Dynamic-T={0}-K={1}-hb={2}-hc={3}".format(self.T,self.K, self.hb, self.hc)
+
     def c_vector(self, gains, costs):
 
         c_gain = np.cumsum(gains)
@@ -151,8 +153,6 @@ class BPMDCWLMetric(CWLMetric):
             T = T + self.hb * (gains[i] - self.gain_med )
 
             i = i + 1
-        #print(self.T, self.K)
-        #print("rrvec", rr_cvec[0:11])
         # COST Constraint
         p_cvec = np.zeros(len(costs))
         i = 0
@@ -162,10 +162,8 @@ class BPMDCWLMetric(CWLMetric):
             p_cvec[i] = 1.0
             # Now Update K, depending on gain[i]
             T = T + self.hc * ( gains[i] - self.gain_med)
-
             i = i + 1
 
-        #print("pvec", p_cvec[0:11])
         # combine the two continuation bectors
         bpm_cvec = np.zeros(len(costs))
         i = 0
@@ -173,5 +171,5 @@ class BPMDCWLMetric(CWLMetric):
             if (rr_cvec[i] == 1.0) and (p_cvec[i] == 1.0):
                 bpm_cvec[i] = 1.0
             i = i + 1
-        #print("bpm", bpm_cvec[0:11])
+
         return bpm_cvec

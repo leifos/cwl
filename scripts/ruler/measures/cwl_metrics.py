@@ -17,6 +17,9 @@ class CWLMetric(object):
         self.ranking = None
         self.bibtex = ""
 
+    def name(self):
+        return self.metric_name
+
 
     def c_vector(self, gains, costs=None):
         cvec = np.ones(len(gains))
@@ -24,11 +27,11 @@ class CWLMetric(object):
 
     def l_vector(self, gains, costs=None):
         cvec = self.c_vector(gains, costs)
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "cvec", cvec[0:11]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.name(), "cvec", cvec[0:11]))
         cshift = np.append(np.array([1.0]), cvec[0:-1])
         lvec = np.cumprod(cshift)
         lvec = np.multiply(lvec,(np.subtract(np.ones(len(cvec)),cvec)))
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.metric_name, "lvec", lvec[0:11]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.name(), "lvec", lvec[0:11]))
         return lvec
 
     def w_vector(self, gains, costs=None):
@@ -39,7 +42,7 @@ class CWLMetric(object):
         w1 = np.divide(1.0, np.sum(cvec_prod))
         w_tail = np.multiply(cvec_prod[1:len(cvec_prod)],w1)
         wvec = np.append(w1, w_tail)
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:11]))
+        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id, self.name(), "wvec", wvec[0:11]))
         return wvec
 
     def pad_vector(self, vec1, n, val):
@@ -92,7 +95,7 @@ class CWLMetric(object):
         return self.expected_total_utility
 
     def report(self):
-        print("{0}\t{1}\t{2:.4f}\t{3:.4f}\t{4:.4f}\t{5:.4f}\t{6:.4f}".format(self.ranking.topic_id, self.metric_name, self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
+        print("{0}\t{1}\t{2:.4f}\t{3:.4f}\t{4:.4f}\t{5:.4f}\t{6:.4f}".format(self.ranking.topic_id, self.name(), self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
 
 
     def scores(self):

@@ -44,6 +44,9 @@ class SDCGCWLMetric(CWLMetric):
         }
         """
 
+    def name(self):
+        return "SDCG-k@{0} ".format(self.k)
+
     def c_vector(self, gains, costs=None):
 
         cvec = []

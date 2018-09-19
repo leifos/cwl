@@ -47,6 +47,9 @@ class INSTCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "INST-T={0}".format(self.T)
+
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
         cg = np.subtract(self.T, np.cumsum(gains))

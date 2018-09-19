@@ -20,10 +20,7 @@ ERR
  url = {http://doi.acm.org/10.1145/1645953.1646033}
 } 
 
-
-
 '''
-
 
 class RRCWLMetric(CWLMetric):
 
@@ -31,6 +28,9 @@ class RRCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "RR"
         self.bibtex = ""
+
+    def name(self):
+        return "RR"
 
     def c_vector(self, gains, costs=None):
 
@@ -52,11 +52,26 @@ class ERRCWLMetric(CWLMetric):
 
     def __init__(self):
         super(CWLMetric, self).__init__()
-        self.metric_name = "ERR     "
+        self.metric_name = "ERR"
+        self.bibtex = """
+        @inproceedings{Chapelle:2009:ERR:1645953.1646033,
+        author = {Chapelle, Olivier and Metlzer, Donald and Zhang, Ya and Grinspan, Pierre},
+        title = {Expected Reciprocal Rank for Graded Relevance},
+        booktitle = {Proceedings of the 18th ACM Conference on Information and Knowledge Management},
+        series = {CIKM '09},
+        year = {2009},
+        location = {Hong Kong, China},
+        pages = {621--630},
+        numpages = {10},
+        url = {http://doi.acm.org/10.1145/1645953.1646033}
+        } 
+        """
+
+    def name(self):
+        return "ERR"
 
     def c_vector(self, gains, costs=None):
         '''
-
         :param gains: all gains must be between one and zero
         :param costs: cost vectors can be any real value, i.e. can be greater than one, but is not used for ERR.
         :return: the continuation vector for ERR

@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from ruler.measures.cwl_metrics import CWLMetric
-import logging
+
 
 '''
 Time Biased Gain
@@ -43,6 +43,9 @@ class TBGCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "TBG-H@{0} ".format(self.h)
+
     def c_vector(self, gains, costs):
 
         wvec = self.w_vector(gains, costs)
@@ -56,6 +59,7 @@ class TBGCWLMetric(CWLMetric):
 
         cvec.append(0.0)
         cvec = np.array(cvec)
+
         return cvec
 
 
@@ -76,7 +80,6 @@ class TBGCWLMetric(CWLMetric):
             wvec.append(weight_i)
         wvec.append( 0.0 )
 
-        logging.debug("{0} {1} {2} {3}".format(self.ranking.topic_id,self.metric_name, "wvec", wvec[0:10]))
         return np.array(wvec)
 
 
@@ -86,7 +89,6 @@ class TBGCWLMetric(CWLMetric):
 
     def area_under_decay(self, x1, x2):
         return self.integral_decay(x1)-self.integral_decay(x2)
-
 
     def norm_constant(self):
         return self.integral_decay(0)

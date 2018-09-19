@@ -38,8 +38,9 @@ class RBPCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "RBP@{0}".format(self.theta)
+
     def c_vector(self, gains, costs=None):
-        # precision for k = len(gains)
-        #gains =
         cvec = np.dot(np.ones(len(gains)), self.theta)
         return cvec

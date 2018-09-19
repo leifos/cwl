@@ -1,6 +1,5 @@
 import numpy as np
 import math
-import logging
 from ruler.measures.cwl_metrics import CWLMetric
 
 
@@ -31,6 +30,10 @@ class APCWLMetric(CWLMetric):
         super(CWLMetric, self).__init__()
         self.metric_name = "AP"
         self.bibtex = ""
+
+
+    def name(self):
+        return self.metric_name
 
     def c_vector(self, gains, costs=None):
         '''

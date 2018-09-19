@@ -2,7 +2,6 @@ import numpy as np
 import math
 from ruler.measures.cwl_metrics import CWLMetric
 
-
 '''
 Information Foraging Based Measure
 
@@ -38,8 +37,10 @@ class IFTGoalCWLMetric(CWLMetric):
                       "numpages = {10}," \
                       "} "
 
-    def c_vector(self, gains, costs=None):
+    def name(self):
+        return "IFT-C1-T@{0}-b1@{1}-R1@{2}".format(self.T, self.b1, self.R1)
 
+    def c_vector(self, gains, costs=None):
         cgains = np.cumsum(gains)
         cvec = []
         for i in range(0,len(gains)):
@@ -73,9 +74,10 @@ class IFTRateCWLMetric(CWLMetric):
                       "numpages = {10}," \
                       "} "
 
+    def name(self):
+        return "IFT-C2-A@{0}-b2@{1}-R2@{2}".format(self.A, self.b2, self.R2)
 
     def c_vector(self, gains, costs):
-
         cgains = np.cumsum(gains)
         ccosts = np.cumsum(costs)
         cvec = []
@@ -115,9 +117,10 @@ class IFTGoalRateCWLMetric(CWLMetric):
         } 
         """
 
+    def name(self):
+        return "IFT-C1-C2-T@{0}-b1@{1}-R1@{2}-A@{0}-b2@{1}-R2@{2}".format(self.T, self.b1, self.R1, self.A, self.b2, self.R2)
 
     def c_vector(self, gains, costs):
-
         cgains = np.cumsum(gains)
         ccosts = np.cumsum(costs)
         cvec = []

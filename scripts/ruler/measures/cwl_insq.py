@@ -11,6 +11,9 @@ class INSQCWLMetric(CWLMetric):
         self.T = T
         self.bibtex = ""
 
+    def name(self):
+        return "INSQ-T={0}".format(self.T)
+
     def c_vector(self, gains, costs=None):
         # precision for k = len(gains)
         cg = np.cumsum(gains)
