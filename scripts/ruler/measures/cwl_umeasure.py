@@ -43,8 +43,8 @@ class UMeasureCWLMetric(CWLMetric):
     def name(self):
         return "U-L@{0} ".format(self.L)
 
-    def c_vector(self, gains, costs):
-        wvec = self.w_vector(gains, costs)
+    def c_vector(self, ranking):
+        wvec = self.w_vector(ranking)
         cvec = []
         for i in range(0,len(wvec)-1):
             if(wvec[i]>0.0):
@@ -57,11 +57,11 @@ class UMeasureCWLMetric(CWLMetric):
         return cvec
 
 
-    def w_vector(self, gains, costs):
+    def w_vector(self, ranking):
         wvec = []
         # to get the positions, cumulative sum the costs..
         # costs are assumed to length of each document
-        ccosts = np.cumsum(costs)
+        ccosts = np.cumsum(ranking.costs)
         start = 0
         norm = 0.0
         for i in range(0,len(ccosts)-1):

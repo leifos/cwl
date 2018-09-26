@@ -40,10 +40,10 @@ class IFTGoalCWLMetric(CWLMetric):
     def name(self):
         return "IFT-C1-T@{0}-b1@{1}-R1@{2}".format(self.T, self.b1, self.R1)
 
-    def c_vector(self, gains, costs=None):
-        cgains = np.cumsum(gains)
+    def c_vector(self, ranking):
+        cgains = np.cumsum(ranking.gains)
         cvec = []
-        for i in range(0,len(gains)):
+        for i in range(0,len(ranking.gains)):
             c1 = self.c1_func(cgains[i])
             cvec.append(c1)
 
@@ -77,11 +77,11 @@ class IFTRateCWLMetric(CWLMetric):
     def name(self):
         return "IFT-C2-A@{0}-b2@{1}-R2@{2}".format(self.A, self.b2, self.R2)
 
-    def c_vector(self, gains, costs):
-        cgains = np.cumsum(gains)
-        ccosts = np.cumsum(costs)
+    def c_vector(self, ranking):
+        cgains = np.cumsum(ranking.gains)
+        ccosts = np.cumsum(ranking.costs)
         cvec = []
-        for i in range(0,len(gains)):
+        for i in range(0,len(ranking.gains)):
             c2 = self.c2_func(cgains[i],ccosts[i])
             cvec.append(c2)
 
@@ -120,11 +120,11 @@ class IFTGoalRateCWLMetric(CWLMetric):
     def name(self):
         return "IFT-C1-C2-T@{0}-b1@{1}-R1@{2}-A@{0}-b2@{1}-R2@{2}".format(self.T, self.b1, self.R1, self.A, self.b2, self.R2)
 
-    def c_vector(self, gains, costs):
-        cgains = np.cumsum(gains)
-        ccosts = np.cumsum(costs)
+    def c_vector(self, ranking):
+        cgains = np.cumsum(ranking.gains)
+        ccosts = np.cumsum(ranking.costs)
         cvec = []
-        for i in range(0,len(gains)):
+        for i in range(0,len(ranking.gains)):
 
             c1 = self.c1_func(cgains[i])
             c2 = self.c2_func(cgains[i],ccosts[i])

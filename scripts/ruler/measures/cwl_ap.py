@@ -35,7 +35,8 @@ class APCWLMetric(CWLMetric):
     def name(self):
         return self.metric_name
 
-    def c_vector(self, gains, costs=None):
+
+    def c_vector(self, ranking):
         '''
         Doesn't metric need to know all the relevant items??
         :param gains:
@@ -43,11 +44,11 @@ class APCWLMetric(CWLMetric):
         :return:
         '''
 
-        n = len(gains)
+        n = len(ranking.gains)
         rii = []
         cvec = []
         for i in range(0,n):
-            rii.append(gains[i]/(i+1))
+            rii.append(ranking.gains[i]/(i+1))
 
 
         for i in range(0,n-1):

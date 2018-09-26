@@ -14,9 +14,9 @@ class INSQCWLMetric(CWLMetric):
     def name(self):
         return "INSQ-T={0}".format(self.T)
 
-    def c_vector(self, gains, costs=None):
+    def c_vector(self, ranking):
         # precision for k = len(gains)
-        cg = np.cumsum(gains)
+        cg = np.cumsum(ranking.gains)
         cvec = []
         for i in range(0, len(cg)):
             ci = (((i+1.0)+ (2.0 *self.T)-1.0) / ((i+1.0)+ (2.0 * self.T)))**2.0

@@ -47,10 +47,10 @@ class SDCGCWLMetric(CWLMetric):
     def name(self):
         return "SDCG-k@{0} ".format(self.k)
 
-    def c_vector(self, gains, costs=None):
+    def c_vector(self, ranking):
 
         cvec = []
-        for i in range(1,len(gains)+1):
+        for i in range(1,len(ranking.gains)+1):
             if i < self.k:
                 cvec.append(math.log(i+1,2)/math.log(i+2,2))
             else:

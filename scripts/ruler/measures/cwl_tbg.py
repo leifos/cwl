@@ -46,9 +46,9 @@ class TBGCWLMetric(CWLMetric):
     def name(self):
         return "TBG-H@{0} ".format(self.h)
 
-    def c_vector(self, gains, costs):
+    def c_vector(self, ranking):
 
-        wvec = self.w_vector(gains, costs)
+        wvec = self.w_vector(ranking)
 
         cvec = []
         for i in range(0,len(wvec)-1):
@@ -63,15 +63,10 @@ class TBGCWLMetric(CWLMetric):
         return cvec
 
 
-    def w_vector(self, gains, costs):
-        """
+    def w_vector(self, ranking):
 
-        :param gains:
-        :param costs:
-        :return:
-        """
         wvec = []
-        ccosts = np.cumsum(costs)
+        ccosts = np.cumsum(ranking.costs)
         start = 0
         norm = self.norm_constant()
         for i in range(0,len(ccosts)-1):

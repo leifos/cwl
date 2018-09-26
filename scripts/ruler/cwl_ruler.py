@@ -23,6 +23,7 @@ class Ranking(object):
         self.topic_id = topic_id
         self.qgains = gain_handler
         self.qcosts = cost_dict
+        self.total_gain = 0.0
         self.gains = []
         self.costs = []
         self.show_report = False

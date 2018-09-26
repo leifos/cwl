@@ -29,3 +29,17 @@ class TrecQrelHandler(TopicDocumentFileHandler):
     
     
 
+    def get_total_gain(self, topic):
+
+        doc_list = self.get_doc_list(topic)
+        gain = 0.0
+        for doc in doc_list:
+            gain += self.get_value(topic,doc)
+        return gain
+
+    def get_total_rels(self, topic):
+        doc_list = self.get_doc_list(topic)
+        rels = 0.0
+        for doc in doc_list:
+            rels += 1.0
+        return rels

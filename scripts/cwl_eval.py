@@ -68,6 +68,8 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None, bib_file=No
                 # reset seen list
 
                 ranking = Ranking(curr_topic_id, qrh, costs)
+                ranking.total_gain = qrh.get_total_gain(curr_topic_id)
+                ranking.total_rels = qrh.get_total_rels(curr_topic_id)
                 ranking.add(doc_id, element_type)
 
         #Perform the Measurements on the last topic
