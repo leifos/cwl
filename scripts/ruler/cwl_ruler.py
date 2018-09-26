@@ -24,6 +24,7 @@ class Ranking(object):
         self.qgains = gain_handler
         self.qcosts = cost_dict
         self.total_gain = 0.0
+        self.total_rels = 0.0
         self.gains = []
         self.costs = []
         self.show_report = False
