@@ -43,6 +43,11 @@ class APCWLMetric(CWLMetric):
         :param costs:
         :return:
         '''
+        rels = 0
+        for g in ranking.gains:
+            if g > 0.0:
+                rels += 1
+        rm = int(ranking.total_rels) - rels
 
         n = len(ranking.gains)
         rii = []
@@ -65,3 +70,54 @@ class APCWLMetric(CWLMetric):
         cvec = np.array(cvec)
 
         return cvec
+
+
+class TrueAPCWLMetric(CWLMetric):
+    def __init__(self):
+        super(CWLMetric, self).__init__()
+        self.metric_name = "TrAP"
+        self.bibtex = ""
+
+
+    def name(self):
+        return self.metric_name
+
+
+    def c_vector(self, ranking):
+
+        wvec = self.w_vector(ranking)
+
+        cvec = []
+        for i in range(0,len(wvec)-1):
+            if(wvec[i]>0.0):
+                cvec.append( wvec[i+1]/ wvec[i])
+            else:
+                cvec.append(0.0)
+
+        cvec.append(0.0)
+        cvec = np.array(cvec)
+
+        return cvec
+
+
+    def w_vector(self, ranking):
+
+        wvec = []
+        ccosts = np.cumsum(ranking.costs)
+        ggains = np.cumsum(ranking.gains)
+
+        i = 0
+        while (ggains[i] == 0) and (i < len(ggains)-1):
+            ggains[i] = 1.0
+            i += 1
+
+        print(ggains[0:10])
+
+        wvec = np.divide(ggains,ccosts)
+        #print(wvec[0:10])
+        #print(ranking.total_rels)
+        if ranking.total_rels > 0:
+            wvec = wvec / ranking.total_rels
+        #print(wvec[0:10])
+
+        return np.array(wvec)

@@ -41,5 +41,6 @@ class TrecQrelHandler(TopicDocumentFileHandler):
         doc_list = self.get_doc_list(topic)
         rels = 0.0
         for doc in doc_list:
-            rels += 1.0
+            if self.get_value(topic,doc) > 0.0:
+                rels += 1.0
         return rels
