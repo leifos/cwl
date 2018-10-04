@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+*.bib
+*.trec
+*.cwl
+
 *.idea
 *.DS_Store
 
