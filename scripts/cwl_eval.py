@@ -4,7 +4,7 @@ __author__ = "Leif @leifos Azzopardi"
 import os
 import argparse
 from seeker.trec_qrel_handler import TrecQrelHandler
-from ruler.cwl_ruler import Ranking, CWLRuler
+from ruler.cwl_ruler import RankingMaker, Ranking, CWLRuler
 
 
 def read_in_cost_file(cost_file):
@@ -39,7 +39,7 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None, bib_file=No
     cwl_ruler = CWLRuler(metrics_file)
 
     curr_topic_id = None
-    ranking = None
+    ranking_maker = None
 
     if colnames:
         print("Topic\tMetric\tEU/I\tEU\tEC/I\tEC\tI")
@@ -54,12 +54,12 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None, bib_file=No
 
             if (topic_id == curr_topic_id):
                 # build vectors
-                ranking.add(doc_id, element_type)
+                ranking_maker.add(doc_id, element_type)
             else:
                 if curr_topic_id is not None:
                     #Perform the Measurements
                     #ranking.report()
-                    cwl_ruler.measure(ranking)
+                    cwl_ruler.measure(ranking_maker.get_ranking())
                     cwl_ruler.report()
 
                 # new topic
@@ -67,14 +67,12 @@ def main(results_file, qrel_file, cost_file=None, metrics_file=None, bib_file=No
 
                 # reset seen list
 
-                ranking = Ranking(curr_topic_id, qrh, costs)
-                ranking.total_gain = qrh.get_total_gain(curr_topic_id)
-                ranking.total_rels = qrh.get_total_rels(curr_topic_id)
-                ranking.add(doc_id, element_type)
+                ranking_maker = RankingMaker(curr_topic_id, qrh, costs)
+                ranking_maker.add(doc_id, element_type)
 
         #Perform the Measurements on the last topic
-        ranking.report()
-        cwl_ruler.measure(ranking)
+        #ranking_maker.report()
+        cwl_ruler.measure(ranking_maker.get_ranking())
         cwl_ruler.report()
 
 

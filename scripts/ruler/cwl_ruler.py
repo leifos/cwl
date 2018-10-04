@@ -17,8 +17,25 @@ from ruler.measures.cwl_bpm import *
 from ruler.measures.cwl_umeasure import *
 from ruler.measures.cwl_ift import *
 
-
 class Ranking(object):
+    def __init__(self, topic_id, gains, costs):
+        self.topic_id = topic_id
+        self.gains = gains
+        self.costs = costs
+        self.total_gain = 0.0
+        self.total_rels = 0.0
+        for g in gains:
+            self.total_gain += g
+            if g > 0.0:
+                self.total_rels += 1.0
+
+    def report(self):
+        if self.show_report:
+            print("Topic: {0}".format(self.topic_id))
+            print(self.topic_id,self.gains[:10])
+            print(self.topic_id,self.costs[:10])
+
+class RankingMaker(object):
     def __init__(self, topic_id, gain_handler, cost_dict=None):
         self.topic_id = topic_id
         self.qgains = gain_handler
@@ -46,6 +63,11 @@ class Ranking(object):
                 return 1.0
         # Add in object accessor to map element type to costs for the docid
         return 1.0
+
+
+    def get_ranking(self):
+        return Ranking(self.topic_id, self.gains, self.costs)
+
 
     def report(self):
         if self.show_report:
