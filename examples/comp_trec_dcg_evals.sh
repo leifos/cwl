@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 
 echo "Differences on ap_bm25.res with dcg scores"
 
