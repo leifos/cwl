@@ -2,7 +2,7 @@
 
 echo "Differences on ap_bm25.res with inst scores using inst_eval.py"
 
-python /Users/leif/Code/inst_eval/inst_eval.py qrels/test_qrel_file results/test_result_file TperQuery > tmp
+python /Users/leif/Code/inst_eval/inst_eval.py qrels/test_qrel_file results/test_result_file TperQuery1 > tmp
 
 grep "inst_min" tmp > tmp2
 awk '{print $2 " " $3}' tmp2 > tmp3

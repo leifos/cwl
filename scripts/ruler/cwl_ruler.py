@@ -66,8 +66,10 @@ class RankingMaker(object):
 
 
     def get_ranking(self):
-        return Ranking(self.topic_id, self.gains, self.costs)
-
+        ranking =  Ranking(self.topic_id, self.gains, self.costs)
+        ranking.total_rels = self.qgains.get_total_rels(self.topic_id)
+        ranking.total_gain = self.qgains.get_total_gains(self.topic_id)
+        return ranking
 
     def report(self):
         if self.show_report:
