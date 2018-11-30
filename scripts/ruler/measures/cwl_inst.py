@@ -55,7 +55,8 @@ class INSTCWLMetric(CWLMetric):
         cg = np.subtract(self.T, np.cumsum(ranking.gains))
         cvec = []
         for i in range(0, len(cg)):
-            ci = (((i+1.0)+self.T+cg[i]-1.0) / ((i+1.0)+self.T+cg[i]))**2.0
+            Ti = max(self.T - cg[i], 0.0)
+            ci = (((i+1.0)+self.T+Ti-1.0) / ((i+1.0)+self.T+Ti))**2.0
             cvec.append(ci)
 
         cvec = np.array(cvec)

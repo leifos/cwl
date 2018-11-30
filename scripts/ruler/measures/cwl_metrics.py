@@ -53,34 +53,34 @@ class CWLMetric(object):
         """
 
         if len(vec1) < n:
-            vec1 =  np.pad(vec1,(0,n-len(vec1)), 'constant', constant_values=(val))
+            vec1 =  np.pad(vec1,(0, n-len(vec1)), 'constant', constant_values=(val))
         return vec1
 
     def pad_vector_zeros(self, vec1, n):
         if len(vec1) < n:
             return self.pad_vector(vec1, n, 0.0)
         else:
-            return vec1[0:n-1]
+            return vec1[0:n]
 
     def pad_vector_ones(self, vec1, n):
         if len(vec1) < n:
-            return self.pad_vector(vec1,n, 1.0)
+            return self.pad_vector(vec1, n, 1.0)
         else:
-            return vec1[0:n-1]
+            return vec1[0:n]
 
 
     def measure(self, ranking):
         self.ranking = ranking
         gains = np.array(ranking.gains)
-
         costs = np.array(ranking.costs)
+       
         gains = self.pad_vector_zeros(gains, 1000)
         costs = self.pad_vector_ones(costs, 1000)
 
         ranking.gains = gains
         ranking.costs = costs
+        
         #create the c / w / l vectors for the gain vector
-
         wvec = self.w_vector(ranking)
         lvec = self.l_vector(ranking)
 
@@ -98,6 +98,10 @@ class CWLMetric(object):
 
     def report(self):
         print("{0}\t{1}\t{2:.4f}\t{3:.4f}\t{4:.4f}\t{5:.4f}\t{6:.4f}".format(self.ranking.topic_id, self.name(), self.expected_utility,self.expected_total_utility,self.expected_cost,self.expected_total_cost, self.expected_items))
+
+    def csv(self):
+        #return ("{0:.3f}".format(self.expected_utility))
+        return ("{0},{1:.3f},{2:.3f},{3:.3f},{4:.3f},{5:.3f}".format(self.name(), self.expected_utility, self.expected_total_utility, self.expected_cost, self.expected_total_cost, self.expected_items))
 
 
     def scores(self):
