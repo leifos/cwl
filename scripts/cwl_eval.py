@@ -6,7 +6,6 @@ import argparse
 from seeker.trec_qrel_handler import TrecQrelHandler
 from ruler.cwl_ruler import RankingMaker, Ranking, CWLRuler
 
-
 def read_in_cost_file(cost_file):
 
     costs = dict()

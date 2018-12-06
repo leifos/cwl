@@ -16,6 +16,7 @@ from ruler.measures.cwl_tbg import *
 from ruler.measures.cwl_bpm import *
 from ruler.measures.cwl_umeasure import *
 from ruler.measures.cwl_ift import *
+from ruler.measures.cwl_empirical import *
 
 class Ranking(object):
     def __init__(self, topic_id, gains, costs):
@@ -93,21 +94,31 @@ class CWLRuler(object):
             # if costs are not specified, then the cost of each item is 1.0
             self.metrics = [
                          PrecisionCWLMetric(1),
+                         PrecisionCWLMetric(2),
+                         PrecisionCWLMetric(3),
+                         PrecisionCWLMetric(4),
                          PrecisionCWLMetric(5),
+                         PrecisionCWLMetric(6),
+                         PrecisionCWLMetric(7),
+                         PrecisionCWLMetric(8),
+                         PrecisionCWLMetric(9),
                          PrecisionCWLMetric(10),
-                         PrecisionCWLMetric(20),
-                         RBPCWLMetric(0.9),
-                         SDCGCWLMetric(10),
-                         RRCWLMetric(),
-                         APCWLMetric(),
-                         INSTCWLMetric(2.0),
-                         INSQCWLMetric(2.0),
-                         BPMCWLMetric(2.0, 10),
-                         BPMDCWLMetric(2.0, 10),
-                         UMeasureCWLMetric(50),
-                         TBGCWLMetric(22),
-                         IFTGoalRateCWLMetric(2.0, 0.9, 10, 0.2, 0.9, 10),
-                         IFTGoalRateCWLMetric(2.0, 0.9, 100, 0.2, 0.9, 100),
+                         EconCWLMetric(tag="Rank"),
+                         EconCWLMetric(tag="Time"),
+                         EconCWLMetric(tag="Gain"),
+                         EconCWLMetric(tag="GainTime")
+                         #RBPCWLMetric(0.9),
+                         #SDCGCWLMetric(10),
+                         #RRCWLMetric(),
+                         #APCWLMetric(),
+                         #INSTCWLMetric(2.0),
+                         #INSQCWLMetric(2.0),
+                         #BPMCWLMetric(2.0, 10),
+                         #BPMDCWLMetric(2.0, 10),
+                         #UMeasureCWLMetric(50),
+                         #TBGCWLMetric(22),
+                         #IFTGoalRateCWLMetric(2.0, 0.9, 10, 0.2, 0.9, 10),
+                         #IFTGoalRateCWLMetric(2.0, 0.9, 100, 0.2, 0.9, 100),
                          ]
 
     def measure(self, ranking):
@@ -117,6 +128,12 @@ class CWLRuler(object):
     def report(self):
         for metric in self.metrics:
             metric.report()
+
+    def csv(self):
+        out = ""
+        for metric in self.metrics:
+            out += (metric.csv() + ";")
+        return out
 
     def populate_list(self, input_filename):
         """
