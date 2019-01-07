@@ -67,23 +67,18 @@ class TBGCWLMetric(CWLMetric):
 
         wvec = []
         ccosts = np.cumsum(ranking.costs)
-        start = 0
-        norm = self.norm_constant()
-        for i in range(0,len(ccosts)-1):
-            weight_i = self.area_under_decay(start, ccosts[i])/norm
-            start = ccosts[i]
+        start = 0.0
+
+        norm = 0.0
+
+        for i in range(0,len(ccosts)):
+            weight_i = self.integral_decay(ccosts[i])
+            norm = norm + weight_i
             wvec.append(weight_i)
-        wvec.append( 0.0 )
 
-        return np.array(wvec)
-
+        wvec = np.divide(np.array(wvec), norm)
+        return wvec
 
     def integral_decay(self, x):
         h = self.h
         return (h * (2.0 ** (-x/h)) )/ math.log(2.0, math.e)
-
-    def area_under_decay(self, x1, x2):
-        return self.integral_decay(x1)-self.integral_decay(x2)
-
-    def norm_constant(self):
-        return self.integral_decay(0)
