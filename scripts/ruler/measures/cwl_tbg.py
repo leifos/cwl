@@ -69,9 +69,10 @@ class TBGCWLMetric(CWLMetric):
         ccosts = np.cumsum(ranking.costs)
         start = 0.0
 
-        norm = 0.0
+        norm = self.integral_decay(0.0)
+        wvec.append(norm)
 
-        for i in range(0,len(ccosts)):
+        for i in range(0,len(ccosts)-1):
             weight_i = self.integral_decay(ccosts[i])
             norm = norm + weight_i
             wvec.append(weight_i)
