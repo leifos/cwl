@@ -51,11 +51,10 @@ class INSTCWLMetric(CWLMetric):
         return "INST-T={0}".format(self.T)
 
     def c_vector(self, ranking):
-        # precision for k = len(gains)
-        cg = np.subtract(self.T, np.cumsum(ranking.gains))
+        cg = np.cumsum(ranking.gains)
         cvec = []
         for i in range(0, len(cg)):
-            Ti = max(self.T - cg[i], 0.0)
+            Ti = self.T - cg[i]
             ci = (((i+1.0)+self.T+Ti-1.0) / ((i+1.0)+self.T+Ti))**2.0
             cvec.append(ci)
 
