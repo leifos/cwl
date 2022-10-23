@@ -1,3 +1,10 @@
+#   NOTE THE LATEST VERSION OF CWL-EVAL NOW HOUSED AT:
+#
+#   https://github.com/ireval/
+#
+
+
+
 # C/W/L Evaluation Script
 An evaluation script based on the C/W/L framework
 that is TREC Compatible and provides a replacement
